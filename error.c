@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 12:29:14 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/14 12:13:55 by tas              ###   ########.fr       */
+/*   Created: 2023/01/14 11:52:57 by tas               #+#    #+#             */
+/*   Updated: 2023/01/14 13:13:23 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+int	err_msg(int n)
 {
-	char    *ss;
-	size_t  i;
-
-	i = 0;
-	ss = (char *)s;
-	while (i < n)
-	{
-		ss[i] = (char)c;
-		i++;
-	}
-	s = (void *)ss;
-	return (s);
-}
-
-
-int main(int argc, char **argv)
-{
-    t_data  data;
-	(void)argv;
-
-    ft_memset(&data, 0, sizeof(t_data));
-	if (argc != 5 || argc != 6)
-		return(err_msg(0));
-    
+	write(1, "Error: ", 7);
+	if (n == 0)
+		write(1, ERR_ARG, ft_strlen(ERR_ARG));
+	if (n == 1)
+		write(1, ERR_ARG_DIGIT, ft_strlen(ERR_ARG_DIGIT));
+	if (n == 2)
+		write(1, ERR_ARG_OF, ft_strlen(ERR_ARG_OF));
+    return (0);
 }

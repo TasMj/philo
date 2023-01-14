@@ -1,0 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
+/*   Updated: 2023/01/14 13:20:41 by tas              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo.h"
+
+int check_digit(char *str)
+{
+    int i;
+
+    i = 0;
+    if (ft_strlen(str) == 0)
+        return (1);
+    while (str[i])
+    {
+        if (!(str[i] >= '0' && str[i] <= '9'))
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+int check_args(char *argv)
+{
+    int n;
+    
+    if (check_digit(argv) == 1)
+        return(err_msg(1));
+    n = ft_atoi(argv);
+    if (n < 0 || n > MAX)
+        return(err_msg(2));
+    return (0);
+}
+
+// void    init_param(t_data *data, char **argv, int argc)
+// {
+//     data->nb_of_philo = ft_atoi(argv[1]);
+//     data->time_to_die = ft_atoi(argv[2]);
+//     data->time_to_eat = ft_atoi(argv[3]);
+//     data->time_to_sleep = ft_atoi(argv[4]);
+//     if (argc == 6)
+//         data->meal = ft_atoi(argv[5]);
+// }
+
+// int main()
+// {
+    // check_args("9876");
+// }
