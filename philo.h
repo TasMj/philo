@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/14 13:19:48 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/14 17:53:08 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@
 /*                                  macro                                     */
 /******************************************************************************/
 
-#define ERR_ARG "Not the right amount of arguments\n"
-#define ERR_ARG_DIGIT "You must enter only positif digits\n"
-#define ERR_ARG_OF "Problem overflow\n"
+#define ERR_ARG "Not the right amount of arguments.\n"
+#define ERR_ARG_DIGIT "You must enter only positif digits.\n"
+#define ERR_ARG_OF "Problem overflow.\n"
+#define ERR_NB_PHILO "You need to have at least 1 philosopher.\n"
+#define ERR_ARGS_NO_VALID "Please enter:\n\t<nb of philosopher> <time to die> <time to eat> <time to sleep> <nb of meal (facultatif)>.\n"
 
 #define MAX 2147483647
 
@@ -59,11 +61,15 @@ typedef struct s_philo
 /******************************************************************************/
 
 /*tools*/
-int ft_strlen(char *str);
-int	ft_atoi(const char *nptr);
+int     ft_strlen(char *str);
+int     ft_atoi(const char *nptr);
 
 /*error*/
-int	err_msg(int n);
+int     err_msg(int n);
 
+/*init*/
+int     check_args(char *argv);
+int     arg_valid(char **argv);
+int     init_param(t_data *data, char **argv, int argc);
 
 #endif

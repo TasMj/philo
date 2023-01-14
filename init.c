@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/14 13:20:41 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/14 17:47:48 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,43 @@ int check_args(char *argv)
 {
     int n;
     
-    if (check_digit(argv) == 1)
-        return(err_msg(1));
     n = ft_atoi(argv);
-    if (n < 0 || n > MAX)
-        return(err_msg(2));
+    if ((check_digit(argv) == 1) || n < 0)
+        return (err_msg(1));
+    if (n > MAX)
+        return (err_msg(2));
     return (0);
 }
 
-// void    init_param(t_data *data, char **argv, int argc)
-// {
-//     data->nb_of_philo = ft_atoi(argv[1]);
-//     data->time_to_die = ft_atoi(argv[2]);
-//     data->time_to_eat = ft_atoi(argv[3]);
-//     data->time_to_sleep = ft_atoi(argv[4]);
-//     if (argc == 6)
-//         data->meal = ft_atoi(argv[5]);
-// }
+int arg_valid(char **argv)
+{
+    int i;
+    int c = 0;
+    
+    i = 1;
+    while (argv[i])
+    {
+        if (check_args(argv[i]) == 1)
+            c++;
+        i++;
+    }
+    if (c != 0)
+        return (1);
+    return (0);
+}
+
+int init_param(t_data *data, char **argv, int argc)
+{
+    data->nb_of_philo = ft_atoi(argv[1]);
+    if (data->nb_of_philo == 0)
+        return(err_msg(3));
+    data->time_to_die = ft_atoi(argv[2]);
+    data->time_to_eat = ft_atoi(argv[3]);
+    data->time_to_sleep = ft_atoi(argv[4]);
+    if (argc == 6)
+        data->meal = ft_atoi(argv[5]);
+    return (0);
+}
 
 // int main()
 // {
