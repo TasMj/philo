@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:14 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/14 17:56:03 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/15 15:41:37 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int main(int argc, char **argv)
 	if (arg_valid(argv) == 1)
 		return(err_msg(4));
 	init_param(&data, argv, argc);
+	init_thread(&data);
 	return (0);
 }

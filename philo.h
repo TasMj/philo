@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/14 17:53:08 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/15 15:25:58 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <stddef.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <sys/time.h>
+#include <pthread.h>
 
 /******************************************************************************/
 /*                                  macro                                     */
@@ -30,6 +32,7 @@
 #define ERR_ARG_OF "Problem overflow.\n"
 #define ERR_NB_PHILO "You need to have at least 1 philosopher.\n"
 #define ERR_ARGS_NO_VALID "Please enter:\n\t<nb of philosopher> <time to die> <time to eat> <time to sleep> <nb of meal (facultatif)>.\n"
+#define ERR_THREAD "Failed to create thread.\n"
 
 #define MAX 2147483647
 
@@ -71,5 +74,10 @@ int     err_msg(int n);
 int     check_args(char *argv);
 int     arg_valid(char **argv);
 int     init_param(t_data *data, char **argv, int argc);
+
+/*thread*/
+int     init_thread(t_data *data);
+void    *routine();
+
 
 #endif

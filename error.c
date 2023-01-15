@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:52:57 by tas               #+#    #+#             */
-/*   Updated: 2023/01/14 17:54:49 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/15 15:14:08 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ int	err_msg(int n)
 		write(1, ERR_ARG_OF, ft_strlen(ERR_ARG_OF));
 	if (n == 3)
 		write(1, ERR_NB_PHILO, ft_strlen(ERR_NB_PHILO));
+	if (n == 5)
+		write(1, ERR_THREAD, ft_strlen(ERR_THREAD));
     return (1);
 }
