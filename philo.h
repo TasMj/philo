@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/15 15:25:58 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/15 16:09:52 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-    int     philo_id;
-    t_data  *data;
+    int         philo_id;
+    pthread_t   *thread;
+    t_data      *data;
     
 }t_philo;
 
