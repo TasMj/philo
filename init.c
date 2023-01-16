@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/15 14:49:44 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/16 16:09:47 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,23 @@ int arg_valid(char **argv)
     return (0);
 }
 
-int get_time(struct timeval tv)
+int get_time(time_t start)
 {
-    tv.tv_sec = tv.tv_sec * 1000;
-    return(gettimeofday(&tv, NULL));
+    struct timeval tv;
+    
+    gettimeofday(&tv, NULL);
+    return ((tv.tv_sec * 1000)+ (tv.tv_usec / 1000) - start);
 }
 
 int init_param(t_data *data, char **argv, int argc)
 {
-    // struct timeval tv;
     data->nb_of_philo = ft_atoi(argv[1]);
     if (data->nb_of_philo == 0)
         return(err_msg(3));
     data->time_to_die = ft_atoi(argv[2]);
     data->time_to_eat = ft_atoi(argv[3]);
     data->time_to_sleep = ft_atoi(argv[4]);
-    // data->start_time = get_time(tv);
-    // printf("time: %d\n", data->start_time); voir comment recup time
+    data->start_time = get_time(data->start_time);
     if (argc == 6)
         data->meal = ft_atoi(argv[5]);
     return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/15 16:09:52 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/16 16:07:14 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <sys/time.h>
 #include <pthread.h>
+#include <unistd.h>
 
 /******************************************************************************/
 /*                                  macro                                     */
@@ -42,12 +43,12 @@
 
 typedef struct s_data
 {
-    int nb_of_philo; //also nb of fork
-    int time_to_die;
-    int time_to_eat;
-    int time_to_sleep;
-    int start_time;
-    int meal;
+    int         nb_of_philo; //also nb of fork
+    int         time_to_die;
+    int         time_to_eat;
+    int         time_to_sleep;
+    time_t      start_time;
+    int         meal;
     
 }t_data;
 

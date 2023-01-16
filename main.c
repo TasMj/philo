@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:14 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/15 15:41:37 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/16 14:15:54 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	*ft_memset(void *s, int c, size_t n)
 int main(int argc, char **argv)
 {
     t_data  data;
-	(void)argv;
 
     ft_memset(&data, 0, sizeof(t_data));
 	if (!(argc == 5 || argc == 6))
