@@ -1,23 +1,18 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile(tas)                                      :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+         #
+#    By: tas <tas@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/12 12:26:34 by tmejri            #+#    #+#              #
-#    Updated: 2023/01/16 14:13:05 by tmejri           ###   ########.fr        #
+#    Updated: 2023/01/17 13:43:41 by tas              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= philo
 
-SRCS			=	main.c\
-					error.c \
- 					free.c\
-					init.c\
-					thread.c\
-					tools.c 
+SRCS			= main.c error.c free.c init.c routine.c tools.c \
 
 OBJS			= ${SRCS:.c=.o}
 

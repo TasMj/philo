@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/16 16:09:47 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/01/17 13:48:32 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,6 @@ int arg_valid(char **argv)
     return (0);
 }
 
-int get_time(time_t start)
-{
-    struct timeval tv;
-    
-    gettimeofday(&tv, NULL);
-    return ((tv.tv_sec * 1000)+ (tv.tv_usec / 1000) - start);
-}
-
 int init_param(t_data *data, char **argv, int argc)
 {
     data->nb_of_philo = ft_atoi(argv[1]);
@@ -74,7 +66,35 @@ int init_param(t_data *data, char **argv, int argc)
     data->time_to_eat = ft_atoi(argv[3]);
     data->time_to_sleep = ft_atoi(argv[4]);
     data->start_time = get_time(data->start_time);
+    data->is_dead = 1;
     if (argc == 6)
+    {
         data->meal = ft_atoi(argv[5]);
+        data->max_meal = data->meal;   
+    }
+    return (0);
+}
+
+int    init_thread(t_data *data)
+{
+    int         i;
+    int         nb_philo;
+    pthread_t   t[data->nb_of_philo];
+    t_philo     philo[data->nb_of_philo];
+
+    i = 0;
+    nb_philo = data->nb_of_philo;
+    while (i < nb_philo)
+    {
+        if (pthread_create(t + i, NULL, &routine, NULL) != 0)
+            return (err_msg(5));
+        if (pthread_join(t[i], NULL) != 0)
+            return (err_msg(5));
+        philo->philo_id = i + 1;
+        printf(":%d\n", philo->philo_id);
+        // philo->thread = &t[i];
+        // printf(":%ln\n", philo->thread);
+        i++;
+    }
     return (0);
 }

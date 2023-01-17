@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:46 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/14 12:11:57 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/17 13:44:18 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,12 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (res * sign);
+}
+
+int get_time(time_t start)
+{
+    struct timeval tv;
+    
+    gettimeofday(&tv, NULL);
+    return ((tv.tv_sec * 1000)+ (tv.tv_usec / 1000) - start);
 }

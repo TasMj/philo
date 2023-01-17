@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/16 16:07:14 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/01/17 10:46:24 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_data
     int         time_to_sleep;
     time_t      start_time;
     int         meal;
+    int         max_meal;
+    int         is_dead;
     
 }t_data;
 
@@ -75,11 +77,13 @@ int     err_msg(int n);
 /*init*/
 int     check_args(char *argv);
 int     arg_valid(char **argv);
+int     get_time(time_t start);
 int     init_param(t_data *data, char **argv, int argc);
 
 /*thread*/
 int     init_thread(t_data *data);
-void    *routine();
+void    *routine(t_philo *philo, t_data *data);
+// void    *routine();
 
 
 #endif
