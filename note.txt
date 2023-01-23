@@ -1,5 +1,0 @@
-init les fourchettes (autant de fourchettes que de philo)
-pour les init on va init des mutex qu'on va malloc de la
-taille d'un mutex x le nb de philo
-
-faire fonction qui print les etats des philo

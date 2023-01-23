@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/23 15:51:42 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/23 16:22:35 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ int possible_to_continue(t_data *data, t_philo *philo)
     while (&philo[i])
     {
         if (&philo[i].meals_took != data->nb_of_meal)
-            return (1);
+            return (0);
         i++;
     }
-    return (0);
+    printf("All the philosophers have eat at least %d times\n", data->nb_of_meal);
+    return (1);
 }
 
 void    *routine_one_philo(t_data *data)
@@ -39,7 +40,7 @@ void    *routine_one_philo(t_data *data)
 }
 
 //gere thread par thread
-int eating(t_philo *philo, t_data *data)
+int eat(t_philo *philo, t_data *data)
 {
     if (philo->meals_took == 0) //first round
     {
@@ -58,7 +59,7 @@ int eating(t_philo *philo, t_data *data)
     return (0);
 }
 
-int sleeping_and_thinking(t_philo *philo, t_data *data)
+int sleep_and_think(t_philo *philo, t_data *data)
 {
     usleep(data->time_to_sleep * 1000);
     print_status("sleep", philo, data);
@@ -73,8 +74,8 @@ void    *routine(t_data *data)
 
     while (possible_to_continue(data, philo))
     {
-        eating(&philo, data);
-        sleeping_andthinking(&philo, data);
+        eat(&philo, data);
+        sleep_and_think(&philo, data);
     }
     return (0);
 }
