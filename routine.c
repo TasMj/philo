@@ -6,65 +6,75 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/17 14:01:01 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/23 15:51:42 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//gere thread par thread
-int is_eating(t_philo *philo, t_data *data)
+int possible_to_continue(t_data *data, t_philo *philo)
 {
-    int alive;
-    
-    if (data->meal == 0) // tt le monde a manger au moins x fois
-        return (1);
-    if (!data->meal || data->meal == data->max_meal) //first round
-    {
-        if (philo->philo_id % 2 == 0)
-            usleep(50);
-    }
-    alive = get_time(data->start_time);
-    if (alive < 0)
-    {
-        printf("%d %d died\n", alive, philo->philo_id);
-        data->is_dead = 1;
-        return (1);
-    }
-    printf("%d %d is eating\n", alive, philo->philo_id);
-    usleep(data->time_to_eat * 1000);
-    if (philo->philo_id == data->nb_of_philo)
-        data->meal--;
-    return (0);
-}
+    int i = 0;
 
-int is_sleeping_then_thinking(t_philo *philo, t_data *data)
-{
-    int alive;
-        
-    alive = get_time(data->start_time) + 200;
-    usleep(data->time_to_sleep * 1000);
-    printf("%d %d is sleeping\n", alive, philo->philo_id);
-    usleep(data->time_to_sleep * 1000);
-    printf("%d %d is thinking\n", alive, philo->philo_id);
-    return (0);
-}
-
-int is_dead(t_data *data)
-{
     if (data->is_dead == 1)
         return (1);
+    if (data->nb_of_meal == -1)
+        return (0);
+    while (&philo[i])
+    {
+        if (&philo[i].meals_took != data->nb_of_meal)
+            return (1);
+        i++;
+    }
     return (0);
 }
 
-void    *routine(t_philo *philo, t_data *data)
+void    *routine_one_philo(t_data *data)
 {
-    is_eating(philo, data);
-    if (is_dead(data) ==  1)
+    pthread_mutex_lock(data->forks_lock);
+    printf("%d %d %s\n", 0, 1, FORK);
+    usleep(data->time_to_die);
+    printf("%d %d %s\n", data->time_to_die, 1, DIED);
+    pthread_mutex_unlock(data->forks_lock);
+}
+
+//gere thread par thread
+int eating(t_philo *philo, t_data *data)
+{
+    if (philo->meals_took == 0) //first round
     {
-        printf("%d %d died\n", get_time(data->start_time), philo->philo_id);
-        return (1);
+        if (philo->id % 2 == 0)
+            usleep(100);
     }
-    is_sleeping(philo, data);
+    pthread_mutex_lock(&data->forks_lock[philo->left_fork]);
+    print_status("fork", philo, data);
+    pthread_mutex_lock(&data->forks_lock[philo->right_fork]);
+    print_status("fork", philo, data);
+    usleep(data->time_to_eat * 1000);
+    print_status("eat", philo, data);
+    pthread_mutex_unlock(&data->forks_lock[philo->left_fork]);
+    pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
+    philo->meals_took++;
+    return (0);
+}
+
+int sleeping_and_thinking(t_philo *philo, t_data *data)
+{
+    usleep(data->time_to_sleep * 1000);
+    print_status("sleep", philo, data);
+    print_status("think", philo, data);
+    get_time(data->start_time);
+    return (0);
+}
+
+void    *routine(t_data *data)
+{
+    t_philo *philo;
+
+    while (possible_to_continue(data, philo))
+    {
+        eating(&philo, data);
+        sleeping_andthinking(&philo, data);
+    }
     return (0);
 }

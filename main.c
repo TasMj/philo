@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:14 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/16 14:15:54 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/01/23 11:46:53 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,16 @@ void	*ft_memset(void *s, int c, size_t n)
 int main(int argc, char **argv)
 {
     t_data  data;
-
+	t_philo	philo;
+	
     ft_memset(&data, 0, sizeof(t_data));
+    ft_memset(&philo, 0, sizeof(t_philo));
 	if (!(argc == 5 || argc == 6))
 		return(err_msg(0));
 	if (arg_valid(argv) == 1)
 		return(err_msg(4));
-	init_param(&data, argv, argc);
-	init_thread(&data);
+	init_data(&data, argv, argc);
+	init_philo(&philo, &data);
+	init_thread(&philo, &data);
 	return (0);
 }

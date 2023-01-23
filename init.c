@@ -6,58 +6,13 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/17 13:48:32 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/23 15:24:28 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int check_digit(char *str)
-{
-    int i;
-
-    i = 0;
-    if (ft_strlen(str) == 0)
-        return (1);
-    while (str[i])
-    {
-        if (!(str[i] >= '0' && str[i] <= '9'))
-            return (1);
-        i++;
-    }
-    return (0);
-}
-
-int check_args(char *argv)
-{
-    int n;
-    
-    n = ft_atoi(argv);
-    if ((check_digit(argv) == 1) || n < 0)
-        return (err_msg(1));
-    if (n > MAX)
-        return (err_msg(2));
-    return (0);
-}
-
-int arg_valid(char **argv)
-{
-    int i;
-    int c = 0;
-    
-    i = 1;
-    while (argv[i])
-    {
-        if (check_args(argv[i]) == 1)
-            c++;
-        i++;
-    }
-    if (c != 0)
-        return (1);
-    return (0);
-}
-
-int init_param(t_data *data, char **argv, int argc)
+int init_data(t_data *data, char **argv, int argc)
 {
     data->nb_of_philo = ft_atoi(argv[1]);
     if (data->nb_of_philo == 0)
@@ -66,35 +21,70 @@ int init_param(t_data *data, char **argv, int argc)
     data->time_to_eat = ft_atoi(argv[3]);
     data->time_to_sleep = ft_atoi(argv[4]);
     data->start_time = get_time(data->start_time);
-    data->is_dead = 1;
+    data->is_dead = 0;
     if (argc == 6)
+        data->nb_of_meal = ft_atoi(argv[5]);
+    else if (argc == 5)
+        data->nb_of_meal = -1;
+    return (0);
+}
+
+int init_philo(t_philo *philo,t_data *data)
+{
+    int i;
+    
+    philo = malloc(sizeof(t_philo) * data->nb_of_philo);
+    if (!philo)
+        return (err_msg(6));
+    i = 0;
+    while (i < data->nb_of_philo)
     {
-        data->meal = ft_atoi(argv[5]);
-        data->max_meal = data->meal;   
+        philo->id = i + 1;
+        philo->data = data;
+        philo->meals_took = 0;
+        philo->left_fork = philo->id;
+        if (i == (data->nb_of_philo - 1))
+            philo->right_fork = 0;
+        philo->right_fork = philo->id + 1;
+    }
+    init_thread(philo, data);
+}
+
+int init_thread(t_philo *philo, t_data *data)
+{
+    int i;
+
+    i = 0;
+    while (i < data->nb_of_philo)
+    {
+        if (pthread_create(philo[i].thread, NULL, &routine, NULL) != 0)
+            return (err_msg(5));
+        if (pthread_join(philo[i].thread, NULL) != 0)
+            return (err_msg(5));
+        i++;
     }
     return (0);
 }
 
-int    init_thread(t_data *data)
+int init_mutex(t_data *data)
 {
-    int         i;
-    int         nb_philo;
-    pthread_t   t[data->nb_of_philo];
-    t_philo     philo[data->nb_of_philo];
+    int i;   
 
     i = 0;
-    nb_philo = data->nb_of_philo;
-    while (i < nb_philo)
+    data->forks_lock = malloc(sizeof(pthread_mutex_t) * data->nb_of_philo);
+    if (!data)
+        return (err_msg(6));
+    while (i < data->nb_of_philo)
     {
-        if (pthread_create(t + i, NULL, &routine, NULL) != 0)
-            return (err_msg(5));
-        if (pthread_join(t[i], NULL) != 0)
-            return (err_msg(5));
-        philo->philo_id = i + 1;
-        printf(":%d\n", philo->philo_id);
-        // philo->thread = &t[i];
-        // printf(":%ln\n", philo->thread);
+        if (pthread_mutex_init(&data->forks_lock[i], NULL) != 0)
+            return (err_msg(7));
         i++;
     }
+    if (pthread_mutex_init(&data->print_status_lock, NULL) != 0)
+        return (err_msg(7));
+    if (pthread_mutex_init(&data->death_lock, NULL) != 0)
+        return (err_msg(7));
+    if (pthread_mutex_init(&data->meals_lock, NULL) != 0)
+        return (err_msg(7));
     return (0);
 }
