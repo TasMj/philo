@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/23 16:25:14 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/24 21:09:43 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,22 @@ typedef struct s_data
     pthread_mutex_t print_status_lock;
     pthread_mutex_t death_lock;
     pthread_mutex_t meals_lock;
+    struct s_philo  *philo;
     
 }t_data;
 
 typedef struct s_philo
 {
-    int         id;
-    pthread_t   thread;
-    t_data      *data;
-    int         meals_took;
-    int         right_fork;
-    int         left_fork;
+    struct s_philo     **begining;
+    int                 id;
+    pthread_t           thread;
+    t_data              *data;
+    int                 meals_took;
+    int                 right_fork;
+    int                 left_fork;
     // time_t      current_time;
     
 }t_philo;
-
 
 /******************************************************************************/
 /*                               functions                                    */
@@ -93,8 +94,8 @@ int     ft_strlen(char *str);
 int     ft_atoi(const char *nptr);
 
 /*tools*/
-int     get_time(time_t start);
-void	print_status(char *str, t_philo *philo, t_data *data);
+int     get_time();
+int     print_status(char s, t_philo *philo, t_data *data);
 
 /*error*/
 int     err_msg(int n);
@@ -102,13 +103,18 @@ int     err_msg(int n);
 /*init*/
 int     init_data(t_data *data, char **argv, int argc);
 int     init_philo(t_philo *philo,t_data *data);
-int     init_thread(t_philo *philo, t_data *data);
+int init_thread(t_philo *philo, int i);
+// int init_thread(t_data *data);
+
 int     init_mutex(t_data *data);
 
-/*thread*/
-int     init_thread(t_philo *philo, t_data *data);
-void    *routine(t_data *data);
-// void    *routine();
-
+/*routine*/
+int     possible_to_continue(t_data *data, t_philo *philo);
+int     eat(t_philo *philo, t_data *data);
+int     sleep_and_think(t_philo *philo, t_data *data);
+// void    *routine_one_philo(t_data *data);
+// void    *routine(t_data *data);
+void    *routine_one_philo(void *d);
+void    *routine(void *data);
 
 #endif

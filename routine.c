@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/23 16:22:35 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/24 21:12:49 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int possible_to_continue(t_data *data, t_philo *philo)
         return (0);
     while (&philo[i])
     {
-        if (&philo[i].meals_took != data->nb_of_meal)
+        if (philo[i].meals_took != data->nb_of_meal)
             return (0);
         i++;
     }
@@ -30,29 +30,35 @@ int possible_to_continue(t_data *data, t_philo *philo)
     return (1);
 }
 
-void    *routine_one_philo(t_data *data)
+void    *routine_one_philo(void *d)
 {
-    pthread_mutex_lock(data->forks_lock);
-    printf("%d %d %s\n", 0, 1, FORK);
-    usleep(data->time_to_die);
-    printf("%d %d %s\n", data->time_to_die, 1, DIED);
-    pthread_mutex_unlock(data->forks_lock);
+    t_data *data;
+
+    data = d;
+    // pthread_mutex_lock(data->forks_lock);
+    printf("%ld %d %s\n", get_time() - data->start_time, 1, FORK);
+    usleep(data->time_to_die * 1000);
+    // printf("%d %d %s\n", data->time_to_die, 1, DIED);
+    printf("%ld %d %s\n", get_time() - data->start_time , 1, DIED);
+    // pthread_mutex_unlock(data->forks_lock);
+    return (0);
 }
 
 //gere thread par thread
 int eat(t_philo *philo, t_data *data)
 {
-    if (philo->meals_took == 0) //first round
+    printf("routine: %d", philo->id);
+    if (philo->meals_took == 0)//first round
     {
         if (philo->id % 2 == 0)
             usleep(100);
     }
     pthread_mutex_lock(&data->forks_lock[philo->left_fork]);
-    print_status("fork", philo, data);
+    print_status('f', philo, data);
     pthread_mutex_lock(&data->forks_lock[philo->right_fork]);
-    print_status("fork", philo, data);
+    print_status('f', philo, data);
     usleep(data->time_to_eat * 1000);
-    print_status("eat", philo, data);
+    print_status('e', philo, data);
     pthread_mutex_unlock(&data->forks_lock[philo->left_fork]);
     pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
     philo->meals_took++;
@@ -62,20 +68,21 @@ int eat(t_philo *philo, t_data *data)
 int sleep_and_think(t_philo *philo, t_data *data)
 {
     usleep(data->time_to_sleep * 1000);
-    print_status("sleep", philo, data);
-    print_status("think", philo, data);
+    print_status('s', philo, data);
+    print_status('t', philo, data);
     get_time(data->start_time);
     return (0);
 }
 
-void    *routine(t_data *data)
+void    *routine(void *d)
 {
     t_philo *philo;
-
-    while (possible_to_continue(data, philo))
+    
+    philo = (t_philo *)d;
+    while (possible_to_continue(philo->data, philo))
     {
-        eat(&philo, data);
-        sleep_and_think(&philo, data);
+        eat(philo, philo->data);
+        sleep_and_think(philo, philo->data);
     }
     return (0);
 }
