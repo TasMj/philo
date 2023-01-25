@@ -6,11 +6,24 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/25 11:30:11 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/25 13:35:49 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void    *routine_one_philo(void *d)
+{
+    t_philo *philo;
+
+    philo = d;
+    pthread_mutex_lock(&philo->data->forks_lock[0]);
+    printf("%ld   %d %s\n", get_time() - philo->data->start_time, 1, FORK);
+    usleep(philo->data->time_to_die * 1000);
+    printf("%ld %d %s\n", get_time() - philo->data->start_time, 1, DIED);
+    pthread_mutex_unlock(&philo->data->forks_lock[0]);
+    return (0);
+}
 
 int possible_to_continue(t_data *data, t_philo *philo)
 {
@@ -28,19 +41,6 @@ int possible_to_continue(t_data *data, t_philo *philo)
     }
     printf("All the philosophers have eat at least %d times\n", data->nb_of_meal);
     return (1);
-}
-
-void    *routine_one_philo(void *d)
-{
-    t_philo *philo;
-
-    philo = d;
-    pthread_mutex_lock(&philo->data->forks_lock[0]);
-    printf("%ld   %d %s\n", get_time() - philo->data->start_time, 1, FORK);
-    usleep(philo->data->time_to_die * 1000);
-    printf("%ld %d %s\n", get_time() - philo->data->start_time, 1, DIED);
-    pthread_mutex_unlock(&philo->data->forks_lock[0]);
-    return (0);
 }
 
 //gere thread par thread
@@ -75,13 +75,17 @@ int sleep_and_think(t_philo *philo, t_data *data)
 
 void    *routine(void *d)
 {
-    t_philo *philo;
+    (void)d;
     
-    philo = (t_philo *)d;
-    while (possible_to_continue(philo->data, philo))
-    {
-        eat(philo, philo->data);
-        sleep_and_think(philo, philo->data);
-    }
+    // printf(" in the routine bro\n");
+    // t_philo *philo;
+// 
+    // philo = d;
+    // printf("---------> %d\n", philo->id);
+    // while (possible_to_continue(philo->data, philo))
+    // {
+        // eat(philo, philo->data);
+        // sleep_and_think(philo, philo->data);
+    // }
     return (0);
 }

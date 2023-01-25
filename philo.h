@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/24 21:40:47 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/25 13:34:31 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,11 @@ typedef struct s_data
     pthread_mutex_t death_lock;
     pthread_mutex_t meals_lock;
     struct s_philo  *philo;
-    
 }t_data;
 
 typedef struct s_philo
 {
-    struct s_philo     **begining;
+    struct s_philo     *begining;
     int                 id;
     pthread_t           thread;
     t_data              *data;
@@ -101,8 +100,9 @@ int     err_msg(int n);
 /*init*/
 int     init_data(t_data *data, char **argv, int argc);
 int     init_philo(t_philo *philo,t_data *data);
-int init_thread(t_philo *philo, int i);
-// int init_thread(t_data *data);
+// int init_thread_2(t_philo *philo, int i);
+// int init_thread(t_philo *philo);
+int init_thread(t_data *data);
 
 int     init_mutex(t_data *data);
 
