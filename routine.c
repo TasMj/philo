@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/24 21:12:49 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/25 11:30:11 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,14 @@ int possible_to_continue(t_data *data, t_philo *philo)
 
 void    *routine_one_philo(void *d)
 {
-    t_data *data;
+    t_philo *philo;
 
-    data = d;
-    // pthread_mutex_lock(data->forks_lock);
-    printf("%ld %d %s\n", get_time() - data->start_time, 1, FORK);
-    usleep(data->time_to_die * 1000);
-    // printf("%d %d %s\n", data->time_to_die, 1, DIED);
-    printf("%ld %d %s\n", get_time() - data->start_time , 1, DIED);
-    // pthread_mutex_unlock(data->forks_lock);
+    philo = d;
+    pthread_mutex_lock(&philo->data->forks_lock[0]);
+    printf("%ld   %d %s\n", get_time() - philo->data->start_time, 1, FORK);
+    usleep(philo->data->time_to_die * 1000);
+    printf("%ld %d %s\n", get_time() - philo->data->start_time, 1, DIED);
+    pthread_mutex_unlock(&philo->data->forks_lock[0]);
     return (0);
 }
 

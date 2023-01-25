@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:14 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/24 15:35:55 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/24 21:43:03 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int main(int argc, char **argv)
 	if (arg_valid(argv) == 1)
 		return(err_msg(4));
 	init_data(&data, argv, argc);
+	init_mutex(&data);
 	init_philo(&philo, &data);
 	// printf("ttd %d, tte %d, tts %d\n", data.time_to_die, data.time_to_eat, data.time_to_sleep);
-	init_mutex(&data);
 	// printf("%d --> left: %d, right: %d\n", philo.id, philo.left_fork, philo.right_fork);
 	// init_thread(&data);
 	printf("\n\nEXIT MAIN\n");
