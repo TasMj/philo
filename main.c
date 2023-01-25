@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:14 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/25 14:37:12 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/25 15:00:58 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*ft_memset(void *s, int c, size_t n)
 int main(int argc, char **argv)
 {
     t_data  data;
-	t_philo	*philo;
+	t_philo	**philo;
 
 	philo = NULL;
     ft_memset(&data, 0, sizeof(t_data));

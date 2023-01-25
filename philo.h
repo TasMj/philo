@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/25 13:34:31 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/25 14:55:55 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int     err_msg(int n);
 
 /*init*/
 int     init_data(t_data *data, char **argv, int argc);
-int     init_philo(t_philo *philo,t_data *data);
+int     init_philo(t_philo **philo,t_data *data);
 // int init_thread_2(t_philo *philo, int i);
 // int init_thread(t_philo *philo);
 int init_thread(t_data *data);
