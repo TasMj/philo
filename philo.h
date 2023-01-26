@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/26 14:08:49 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/26 19:34:02 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-    struct s_philo     *begining;
     int                 id;
     pthread_t           thread;
     t_data              *data;
@@ -115,5 +114,10 @@ int     sleep_and_think(t_philo *philo, t_data *data);
 // void    *routine(t_data *data);
 void    *routine_one_philo(void *d);
 void    *routine(void *data);
+
+/*free*/
+int free_data(t_data *data);
+int free_philos(t_philo **philo);
+
 
 #endif

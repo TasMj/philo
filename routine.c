@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/26 14:29:00 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/26 19:38:49 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void    *routine(void *d)
 {
     (void)d;
     
-    // printf(" in the routine bro\n");
-    // t_philo *philo;
+    printf(" in the routine bro\n");
+    // t_data **philo;
 // 
     // philo = d;
-    // printf("---------> %d\n", philo->id);
+    // printf("---------> %d\n", (*philo).id);
     // while (possible_to_continue(philo->data, philo))
     // {
         // eat(philo, philo->data);
