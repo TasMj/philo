@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/25 15:00:23 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/26 14:55:09 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,13 @@ int init_philo(t_philo **philo,t_data *data)
     philo = malloc(sizeof(t_philo) * data->nb_of_philo);
     if (!philo)
         return (err_msg(6));
-
     if (data->nb_of_philo == 1)
     {
         init_only_one_philo(philo, data);
         return (0);
     }
     i = 0;
-    // data->philo = philo;
+    data->first_philo = philo;
     while (i < data->nb_of_philo)
     {
         philo[i] = malloc(sizeof(t_philo) * 1);
@@ -121,28 +120,33 @@ int init_philo(t_philo **philo,t_data *data)
 
 int init_thread(t_data *data)
 {
-    printf("***ENTER INIT THREAD***\n");
-    // printf("data %d\n", data->time_to_die);
+    printf("***ENTER INIT THREAD***\n\n");
     
     int i;
-    t_philo *philo;
+    t_philo **philo;
 
     i = 0;
-    philo = data->philo;
-    while (i < philo->data->nb_of_philo)
+    philo = malloc(sizeof(t_philo) * data->nb_of_philo);
+    if (!philo)
+        return (err_msg(6));
+
+    philo = data->first_philo;
+    while (i < data->nb_of_philo)
     {
-   	printf("%d --> left: %d, right: %d -->\n", philo->id, philo->left_fork, philo->right_fork);
-        if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
+        if (pthread_create(&(*philo)[i].thread, NULL, &routine, &(*philo)[i]) != 0)
+        {
             return (err_msg(5));
+        }
+   	    printf("%d --> left: %d, right: %d -->\n", (*philo)[i].id, (*philo)[i].left_fork, (*philo)[i].right_fork);
         i++;
     }
-    i = 0;
-    while (i < philo->data->nb_of_philo)
-    {
-        if (pthread_join(philo[i].thread, NULL) != 0)
-            return (err_msg(5));
-        i++;
-    }    
+    // i = 0;
+    // while (i < philo->data->nb_of_philo)
+    // {
+        // if (pthread_join(philo[i].thread, NULL) != 0)
+            // return (err_msg(5));
+        // i++;
+    // }    
     return (0);
 }
 

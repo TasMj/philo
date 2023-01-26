@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/25 14:55:55 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/26 14:08:49 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_data
     pthread_mutex_t death_lock;
     pthread_mutex_t meals_lock;
     struct s_philo  *philo;
+    struct s_philo  **first_philo;
 }t_data;
 
 typedef struct s_philo
