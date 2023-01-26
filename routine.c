@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/26 19:38:49 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/27 00:27:48 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ int sleep_and_think(t_philo *philo, t_data *data)
 void    *routine(void *d)
 {
     (void)d;
-    
     printf(" in the routine bro\n");
-    // t_data **philo;
-// 
+    // t_philo *philo;
+
     // philo = d;
+    // printf("[%d] --> left: [%d], right: [%d] -->\n", (*philo).id, (*philo).left_fork, (*philo).right_fork);
+
     // printf("---------> %d\n", (*philo).id);
     // while (possible_to_continue(philo->data, philo))
     // {

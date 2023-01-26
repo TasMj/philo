@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/26 19:37:09 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/27 00:28:09 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,45 +79,6 @@ int init_philo(t_philo **philo,t_data *data)
     return (0);
 }
 
-// int init_thread_2(t_philo *philo, int i)
-// {
-    // printf("***ENTER INIT THREAD***\n");
-	// printf("%d --> left: %d, right: %d", philo->id, philo->left_fork, philo->right_fork);
-    // printf("i: %d\n", i);
-    // if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
-        // return (err_msg(5));
-    // if (pthread_join(philo[i].thread, NULL) != 0)
-        // return (err_msg(5));
-    // return (0);
-// }
-
-// int init_thread(t_data *data)
-// {
-//     printf("***ENTER INIT THREAD***\n");
-    
-//     t_philo *philo = data->philo;
-
-//     printf("philo id: %d\n", philo->id);
-//     // 
-//     int i;
-//     t_philo *philo;
-
-//     i = 1;
-//     philo = data->first_philo;
-    
-//     while (i < philo->data->nb_of_philo)
-//     {
-//    	printf("%d --> left: %d, right: %d -->", philo->id, philo->left_fork, philo->right_fork);
-//         if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
-//             return (err_msg(5));
-//         if (pthread_join(philo[i].thread, NULL) != 0)
-//             return (err_msg(5));
-//         i++;
-//     }
-//     return (0);
-// }
-
-
 int init_thread(t_data *data)
 {
     printf("***ENTER INIT THREAD***\n\n");
@@ -127,15 +88,13 @@ int init_thread(t_data *data)
 
     i = 0;
     philo = data->first_philo;
-    
     while (i < data->nb_of_philo)
     {
-   	printf("%d --> left: %d, right: %d -->", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
-        if (pthread_create(&(*philo)[i].thread, NULL, &routine, &(*philo)[i]) != 0)
+   	    printf("[%d] --> left: [%d], right: [%d] -->", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
+        if (pthread_create(&philo[i]->thread, NULL, &routine, &philo[i]) != 0)
             return (err_msg(5));
-        if (pthread_join((*philo)[i].thread, NULL) != 0)
+        if (pthread_join(philo[i]->thread, NULL) != 0)
             return (err_msg(5));
-
         i++;
     }
     // i = 0;
