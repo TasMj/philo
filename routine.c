@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/27 01:33:25 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/27 22:06:51 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void    *routine_one_philo(void *d)
 
     philo = d;
     pthread_mutex_lock(&philo->data->forks_lock[0]);
-    printf("%ld   %d %s\n", get_time() - philo->data->start_time, 1, FORK);
+    printf("\033[1;33m%ld\033[0m   %d \033[35m%s\033[0m \U0001f374\n", get_time() - philo->data->start_time, 1, FORK);
     usleep(philo->data->time_to_die * 1000);
-    printf("%ld %d %s\n", get_time() - philo->data->start_time, 1, DIED);
+    printf("\033[1;33m%ld\033[0m %d \033[31m%s\033[0m \U0001f480\n", get_time() - philo->data->start_time, 1, DIED);
     pthread_mutex_unlock(&philo->data->forks_lock[0]);
     return (0);
 }
@@ -68,7 +68,6 @@ int sleep_and_think(t_philo *philo, t_data *data)
     usleep(data->time_to_sleep * 1000);
     print_status('s', philo, data);
     print_status('t', philo, data);
-    get_time(data->start_time);
     return (0);
 }
 
