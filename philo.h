@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/26 19:34:02 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/27 01:47:07 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@
 #define DIED "died"
 
 #define MAX 2147483647
+
+/*Colors*/
+# define NC		"\e[0m"
+# define GREEN	"\e[1,32m"
+# define GOLD \033[1;33m
+# define PURPLE	"\e[35m"
+# define CYAN	"\e[36m"
 
 /******************************************************************************/
 /*                               structures                                   */
@@ -107,7 +114,7 @@ int init_thread(t_data *data);
 int     init_mutex(t_data *data);
 
 /*routine*/
-int     possible_to_continue(t_data *data, t_philo *philo);
+int     possible_to_continue(t_data *data);
 int     eat(t_philo *philo, t_data *data);
 int     sleep_and_think(t_philo *philo, t_data *data);
 // void    *routine_one_philo(t_data *data);

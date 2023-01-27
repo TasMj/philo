@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/27 00:28:09 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/27 01:35:23 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int init_philo(t_philo **philo,t_data *data)
         philo[i] = malloc(sizeof(t_philo) * 1);
         if (!philo[i])
             return (err_msg(6));
-        // (*philo)[i].data = data;
+        (*philo)[i].data = data;
         philo[i]->id = i + 1;
         philo[i]->meals_took = 0;
         philo[i]->left_fork = philo[i]->id;
@@ -82,7 +82,6 @@ int init_philo(t_philo **philo,t_data *data)
 int init_thread(t_data *data)
 {
     printf("***ENTER INIT THREAD***\n\n");
-
     t_philo **philo;
     int i;
 
@@ -90,20 +89,13 @@ int init_thread(t_data *data)
     philo = data->first_philo;
     while (i < data->nb_of_philo)
     {
-   	    printf("[%d] --> left: [%d], right: [%d] -->", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
-        if (pthread_create(&philo[i]->thread, NULL, &routine, &philo[i]) != 0)
+   	    // printf("[%d] --> left: [%d], right: [%d] -->", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
+        if (pthread_create(&philo[i]->thread, NULL, &routine, philo[i]) != 0)
             return (err_msg(5));
         if (pthread_join(philo[i]->thread, NULL) != 0)
             return (err_msg(5));
         i++;
     }
-    // i = 0;
-    // while (i < data->nb_of_philo)
-    // {
-        // if (pthread_join((*philo)[i].thread, NULL) != 0)
-            // return (err_msg(5));
-        // i++;
-    // } 
     return (0);
 }
 
