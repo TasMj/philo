@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/27 22:06:51 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/28 18:31:33 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int possible_to_continue(t_data *data)
     return (1);
 }
 
-//gere thread par thread
 int eat(t_philo *philo, t_data *data)
 {
     if ((philo->meals_took == 0) && (philo->id % 2 == 0))//first round
@@ -73,11 +72,9 @@ int sleep_and_think(t_philo *philo, t_data *data)
 
 void    *routine(void *d)
 {
-    // printf(" in the routine bro\n");
     t_philo  *philo;
 
     philo = d;
-    // printf("[%d] --> left: [%d], right: [%d]\n", philo->id, philo->left_fork, philo->right_fork);
     while (possible_to_continue(philo->data) == 0)
     {
         eat(philo, philo->data);

@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/27 01:35:23 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/28 18:29:14 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ int init_mutex(t_data *data)
     {
         if (pthread_mutex_init(&data->forks_lock[i], NULL) != 0)
             return (err_msg(7));
+        //test mutex
+        // if (pthread_mutex_init(&data->time_lock[i], NULL) != 0)
+            // return (err_msg(7));
+        //test mutex
         i++;
     }
     // if (pthread_mutex_init(&data->print_status_lock, NULL) != 0)

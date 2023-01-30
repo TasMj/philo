@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/27 01:47:07 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/28 18:33:58 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,23 @@ typedef struct s_data
     int             nb_of_meal;
     int             is_dead;
     pthread_mutex_t *forks_lock;
+    pthread_mutex_t *time_lock;
     pthread_mutex_t print_status_lock;
-    pthread_mutex_t death_lock;
-    pthread_mutex_t meals_lock;
+    // pthread_mutex_t death_lock;
+    // pthread_mutex_t meals_lock;
     struct s_philo  *philo;
     struct s_philo  **first_philo;
 }t_data;
 
 typedef struct s_philo
 {
-    int                 id;
-    pthread_t           thread;
-    t_data              *data;
-    int                 meals_took;
-    int                 right_fork;
-    int                 left_fork;
+    int             id;
+    pthread_t       thread;
+    t_data          *data;
+    int             meals_took;
+    int             right_fork;
+    int             left_fork;
+    // time_t          time;
 }t_philo;
 
 /******************************************************************************/
