@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/28 18:33:58 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/30 17:08:22 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 #define ERR_NB_PHILO "You need to have at least 1 philosopher.\n"
 #define ERR_ARGS_NO_VALID "Please enter:\n\t<nb of philosopher> <time to die> <time to eat> <time to sleep> <nb of meal (facultatif)>.\n"
 #define ERR_THREAD "Failed to create thread.\n"
-#define ERR_MALLOC "Malloc failled"
-#define ERR_MUTEX "Mutex initialisation failled"
+#define ERR_MALLOC "Malloc failled\n"
+#define ERR_MUTEX "Mutex initialisation failled\n"
 
 /*Philo status*/
 #define FORK "has taken a fork"
@@ -47,13 +47,6 @@
 #define DIED "died"
 
 #define MAX 2147483647
-
-/*Colors*/
-# define NC		"\e[0m"
-# define GREEN	"\e[1,32m"
-# define GOLD \033[1;33m
-# define PURPLE	"\e[35m"
-# define CYAN	"\e[36m"
 
 /******************************************************************************/
 /*                               structures                                   */
@@ -69,10 +62,8 @@ typedef struct s_data
     int             nb_of_meal;
     int             is_dead;
     pthread_mutex_t *forks_lock;
-    pthread_mutex_t *time_lock;
-    pthread_mutex_t print_status_lock;
-    // pthread_mutex_t death_lock;
-    // pthread_mutex_t meals_lock;
+    // pthread_mutex_t *wait_philo_lock;
+    // pthread_mutex_t *time_lock;
     struct s_philo  *philo;
     struct s_philo  **first_philo;
 }t_data;
@@ -85,7 +76,7 @@ typedef struct s_philo
     int             meals_took;
     int             right_fork;
     int             left_fork;
-    // time_t          time;
+    time_t          current_time;
 }t_philo;
 
 /******************************************************************************/
@@ -109,8 +100,6 @@ int     err_msg(int n);
 /*init*/
 int     init_data(t_data *data, char **argv, int argc);
 int     init_philo(t_philo **philo,t_data *data);
-// int init_thread_2(t_philo *philo, int i);
-// int init_thread(t_philo *philo);
 int init_thread(t_data *data);
 
 int     init_mutex(t_data *data);
@@ -125,8 +114,8 @@ void    *routine_one_philo(void *d);
 void    *routine(void *data);
 
 /*free*/
-int free_data(t_data *data);
-int free_philos(t_philo **philo);
+int     free_data(t_data *data);
+int     free_philos(t_philo **philo);
 
 
 #endif

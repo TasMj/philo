@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:46 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/27 22:16:12 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/30 17:06:55 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	print_status(char s, t_philo *philo, t_data *data)
 {
 	time_t timestamp; //le temps actuel depuis le debut
 
-	timestamp = (long int)(get_time() - data->start_time);
+	timestamp = get_time() - data->start_time;
 	if (s == 'f')
 		printf("\033[1;33m%ld\033[0m %d \033[35m%s\033[0m \U0001f374\n", timestamp, philo->id, FORK);
 	if (s == 'e')

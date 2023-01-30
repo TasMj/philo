@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/28 18:31:33 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/30 17:11:46 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int possible_to_continue(t_data *data)
 
 int eat(t_philo *philo, t_data *data)
 {
-    if ((philo->meals_took == 0) && (philo->id % 2 == 0))//first round
+    if ((philo->meals_took == 0) && (philo->id % 2 == 0)) //first round
         usleep(100);
     pthread_mutex_lock(&data->forks_lock[philo->left_fork]);
     print_status('f', philo, data);
@@ -74,7 +74,7 @@ void    *routine(void *d)
 {
     t_philo  *philo;
 
-    philo = d;
+    philo = (void *)d;
     while (possible_to_continue(philo->data) == 0)
     {
         eat(philo, philo->data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/28 18:29:14 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/30 17:10:36 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int init_philo(t_philo **philo,t_data *data)
         philo[i] = malloc(sizeof(t_philo) * 1);
         if (!philo[i])
             return (err_msg(6));
-        (*philo)[i].data = data;
+        philo[i]->data = data;
         philo[i]->id = i + 1;
         philo[i]->meals_took = 0;
         philo[i]->left_fork = philo[i]->id;
@@ -72,10 +72,11 @@ int init_philo(t_philo **philo,t_data *data)
         {
             philo[i]->right_fork = 1;
         }
-	    printf("%d --> left: %d, right: %d\n", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
+        philo[i]->current_time = get_time();
+	    // printf("%d --> left: %d, right: %d\n", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
         i++;
+        
     }
-    printf("\n\n\n");
     return (0);
 }
 
@@ -89,9 +90,14 @@ int init_thread(t_data *data)
     philo = data->first_philo;
     while (i < data->nb_of_philo)
     {
-   	    // printf("[%d] --> left: [%d], right: [%d] -->", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
-        if (pthread_create(&philo[i]->thread, NULL, &routine, philo[i]) != 0)
+	    // printf("%d --> left: %d, right: %d\n", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
+        if (pthread_create(&(philo[i]->thread), NULL, &routine, philo[i]) != 0)
             return (err_msg(5));
+        i++;
+    }
+    i = 0;
+    while (i < data->nb_of_philo)
+    {
         if (pthread_join(philo[i]->thread, NULL) != 0)
             return (err_msg(5));
         i++;
@@ -104,24 +110,14 @@ int init_mutex(t_data *data)
     int i;
 
     i = 0;
-    data->forks_lock = malloc(sizeof(pthread_mutex_t) * data->nb_of_philo);
-    if (!data)
+    data->forks_lock = malloc(sizeof(pthread_mutex_t) * (data->nb_of_philo + 1));
+    if (!data->forks_lock)
         return (err_msg(6));
     while (i < data->nb_of_philo)
     {
         if (pthread_mutex_init(&data->forks_lock[i], NULL) != 0)
             return (err_msg(7));
-        //test mutex
-        // if (pthread_mutex_init(&data->time_lock[i], NULL) != 0)
-            // return (err_msg(7));
-        //test mutex
         i++;
     }
-    // if (pthread_mutex_init(&data->print_status_lock, NULL) != 0)
-        // return (err_msg(7));
-    // if (pthread_mutex_init(&data->death_lock, NULL) != 0)
-        // return (err_msg(7));
-    // if (pthread_mutex_init(&data->meals_lock, NULL) != 0)
-        // return (err_msg(7));
     return (0);
 }
