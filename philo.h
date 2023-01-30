@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/30 17:08:22 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/01/30 19:43:58 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_data
     // pthread_mutex_t *time_lock;
     struct s_philo  *philo;
     struct s_philo  **first_philo;
+    pthread_t       supervisor;
 }t_data;
 
 typedef struct s_philo
@@ -108,8 +109,7 @@ int     init_mutex(t_data *data);
 int     possible_to_continue(t_data *data);
 int     eat(t_philo *philo, t_data *data);
 int     sleep_and_think(t_philo *philo, t_data *data);
-// void    *routine_one_philo(t_data *data);
-// void    *routine(t_data *data);
+void    *simulation_possible(void *d);
 void    *routine_one_philo(void *d);
 void    *routine(void *data);
 

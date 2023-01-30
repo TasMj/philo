@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/30 17:10:36 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/01/30 19:52:31 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int init_thread(t_data *data)
             return (err_msg(5));
         i++;
     }
+    if (pthread_create(&data->supervisor, NULL, &simulation_possible, data) != 0)
+        return(err_msg(5));
     i = 0;
     while (i < data->nb_of_philo)
     {
@@ -102,6 +104,8 @@ int init_thread(t_data *data)
             return (err_msg(5));
         i++;
     }
+    if (pthread_join(data->supervisor, NULL) != 0)
+        return (err_msg(5));
     return (0);
 }
 

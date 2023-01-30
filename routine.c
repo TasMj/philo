@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/30 17:11:46 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/01/30 19:53:30 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,15 @@ void    *routine(void *d)
         eat(philo, philo->data);
         sleep_and_think(philo, philo->data);
     }
+    return (0);
+}
+
+void    *simulation_possible(void *d)
+{
+    printf("JE SUPERVISE\n");
+    t_data  *data;
+
+    data = (void *)d;
+    (void)data;
     return (0);
 }
