@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:46 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/30 17:06:55 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/01/31 13:41:49 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@ int	print_status(char s, t_philo *philo, t_data *data)
 {
 	time_t timestamp; //le temps actuel depuis le debut
 
+	pthread_mutex_lock(data->print_lock);
 	timestamp = get_time() - data->start_time;
 	if (s == 'f')
 		printf("\033[1;33m%ld\033[0m %d \033[35m%s\033[0m \U0001f374\n", timestamp, philo->id, FORK);
 	if (s == 'e')
+	{
 		printf("\033[1;33m%ld\033[0m %d \033[36m%s\033[m \U0001f355\n", timestamp, philo->id, EAT);
+		philo->last_meal = timestamp;
+	}
 	if (s == 's')
 		printf("\033[1;33m%ld\033[0m %d \033[1;32m%s\033[0m \U0001f6CC\n", timestamp, philo->id, SLEEP);
 	if (s == 't')
@@ -38,5 +42,6 @@ int	print_status(char s, t_philo *philo, t_data *data)
 		printf("\033[1;33m%ld\033[0m %d %s\031[0m \U0001f480\n", timestamp, philo->id, DIED);
 		return (1);
 	}
+	pthread_mutex_unlock(data->print_lock);
 	return (0);
 }

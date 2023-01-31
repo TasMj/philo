@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/30 19:52:31 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/01/31 13:53:52 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int init_data(t_data *data, char **argv, int argc)
     data->time_to_sleep = ft_atoi(argv[4]);
     data->start_time = get_time();
     data->is_dead = 0;
+    data->flag_simu = 0;
     if (argc == 6)
         data->nb_of_meal = ft_atoi(argv[5]);
     else if (argc == 5)
@@ -72,7 +73,6 @@ int init_philo(t_philo **philo,t_data *data)
         {
             philo[i]->right_fork = 1;
         }
-        philo[i]->current_time = get_time();
 	    // printf("%d --> left: %d, right: %d\n", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
         i++;
         
@@ -82,7 +82,6 @@ int init_philo(t_philo **philo,t_data *data)
 
 int init_thread(t_data *data)
 {
-    printf("***ENTER INIT THREAD***\n\n");
     t_philo **philo;
     int i;
 
@@ -90,7 +89,6 @@ int init_thread(t_data *data)
     philo = data->first_philo;
     while (i < data->nb_of_philo)
     {
-	    // printf("%d --> left: %d, right: %d\n", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
         if (pthread_create(&(philo[i]->thread), NULL, &routine, philo[i]) != 0)
             return (err_msg(5));
         i++;
@@ -117,11 +115,26 @@ int init_mutex(t_data *data)
     data->forks_lock = malloc(sizeof(pthread_mutex_t) * (data->nb_of_philo + 1));
     if (!data->forks_lock)
         return (err_msg(6));
+    data->dead_lock = malloc(sizeof(pthread_mutex_t) * 1);
+    if (!data->dead_lock)
+        return (err_msg(6));
+    data->print_lock = malloc(sizeof(pthread_mutex_t) * 1);
+    if (!data->print_lock)
+        return (err_msg(6));
+    data->meals_lock = malloc(sizeof(pthread_mutex_t) * 1);
+    if (!data->forks_lock)
+        return (err_msg(6));
     while (i < data->nb_of_philo)
     {
         if (pthread_mutex_init(&data->forks_lock[i], NULL) != 0)
             return (err_msg(7));
         i++;
     }
+    if (pthread_mutex_init(data->dead_lock, NULL) != 0)
+        return (err_msg(7));
+    if (pthread_mutex_init(data->print_lock, NULL) != 0)
+        return (err_msg(7));
+    if (pthread_mutex_init(data->meals_lock, NULL) != 0)
+        return (err_msg(7));
     return (0);
 }

@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+         #
+#    By: tas <tas@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/12 12:26:34 by tmejri            #+#    #+#              #
-#    Updated: 2023/01/30 16:42:44 by tmejri           ###   ########.fr        #
+#    Updated: 2023/01/31 13:25:00 by tas              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= philo
 
-SRCS			= error.c free.c init.c main.c parsing.c routine.c tools.c \
+SRCS			= check_simu.c error.c free.c init.c main.c parsing.c routine.c \
+				tools.c \
 
 OBJS			= ${SRCS:.c=.o}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/01/30 19:53:30 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/01/31 13:25:40 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,6 @@ void    *routine_one_philo(void *d)
     return (0);
 }
 
-/*no death and philo has eaten all their meal*/
-int possible_to_continue(t_data *data)
-{
-    t_philo **all_philo;
-    int i = 0;
-
-    all_philo = data->first_philo;
-    if (data->is_dead == 1)
-        return (1);
-    if (data->nb_of_meal == -1)
-        return (0);
-    while (all_philo[i])
-    {
-        if (all_philo[i]->meals_took != data->nb_of_meal)
-            return (0);
-        i++;
-    }
-    printf("All the philosophers have eat at least %d times\n", data->nb_of_meal);
-    return (1);
-}
 
 int eat(t_philo *philo, t_data *data)
 {
@@ -74,21 +54,11 @@ void    *routine(void *d)
 {
     t_philo  *philo;
 
-    philo = (void *)d;
-    while (possible_to_continue(philo->data) == 0)
+    philo = d;
+    while (philo->data->flag_simu == 0)
     {
         eat(philo, philo->data);
         sleep_and_think(philo, philo->data);
     }
-    return (0);
-}
-
-void    *simulation_possible(void *d)
-{
-    printf("JE SUPERVISE\n");
-    t_data  *data;
-
-    data = (void *)d;
-    (void)data;
     return (0);
 }

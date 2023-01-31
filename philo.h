@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/30 19:43:58 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/01/31 13:53:03 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,14 @@ typedef struct s_data
     time_t          start_time;
     int             nb_of_meal;
     int             is_dead;
+    int             flag_simu;
     pthread_mutex_t *forks_lock;
-    // pthread_mutex_t *wait_philo_lock;
-    // pthread_mutex_t *time_lock;
+
+    pthread_mutex_t *dead_lock;
+    pthread_mutex_t *meals_lock;
+    pthread_mutex_t *print_lock;
+    
+    
     struct s_philo  *philo;
     struct s_philo  **first_philo;
     pthread_t       supervisor;
@@ -77,7 +82,7 @@ typedef struct s_philo
     int             meals_took;
     int             right_fork;
     int             left_fork;
-    time_t          current_time;
+    time_t          last_meal;
 }t_philo;
 
 /******************************************************************************/
