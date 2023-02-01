@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/31 14:24:27 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/01 13:44:48 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int init_data(t_data *data, char **argv, int argc)
     data->time_to_eat = ft_atoi(argv[3]);
     data->time_to_sleep = ft_atoi(argv[4]);
     data->start_time = get_time();
-    data->is_dead = 0;
+    // data->is_dead = 0;
     data->flag_simu = 0;
     if (argc == 6)
         data->nb_of_meal = ft_atoi(argv[5]);
@@ -74,7 +74,6 @@ int init_philo(t_philo **philo,t_data *data)
         {
             philo[i]->right_fork = 1;
         }
-	    // printf("%d --> left: %d, right: %d\n", philo[i]->id, philo[i]->left_fork, philo[i]->right_fork);
         i++;
         
     }
@@ -94,7 +93,9 @@ int init_thread(t_data *data)
             return (err_msg(5));
         i++;
     }
-    if (pthread_create(&data->supervisor, NULL, &simulation_possible, data) != 0)
+    if (pthread_create(&data->watch_death, NULL, &check_death, data) != 0)
+        return(err_msg(5));
+    if (pthread_create(&data->watch_meals, NULL, &check_meals, data) != 0)
         return(err_msg(5));
     i = 0;
     while (i < data->nb_of_philo)
@@ -103,7 +104,9 @@ int init_thread(t_data *data)
             return (err_msg(5));
         i++;
     }
-    if (pthread_join(data->supervisor, NULL) != 0)
+    if (pthread_join(data->watch_death, NULL) != 0)
+        return (err_msg(5));
+    if (pthread_join(data->watch_meals, NULL) != 0)
         return (err_msg(5));
     return (0);
 }

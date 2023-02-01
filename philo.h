@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/31 13:53:03 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/01 13:43:19 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_data
     int             time_to_sleep;
     time_t          start_time;
     int             nb_of_meal;
-    int             is_dead;
+    // int             is_dead;
     int             flag_simu;
     pthread_mutex_t *forks_lock;
 
@@ -71,7 +71,8 @@ typedef struct s_data
     
     struct s_philo  *philo;
     struct s_philo  **first_philo;
-    pthread_t       supervisor;
+    pthread_t       watch_death;
+    pthread_t       watch_meals;
 }t_data;
 
 typedef struct s_philo
@@ -114,13 +115,17 @@ int     init_mutex(t_data *data);
 int     possible_to_continue(t_data *data);
 int     eat(t_philo *philo, t_data *data);
 int     sleep_and_think(t_philo *philo, t_data *data);
-void    *simulation_possible(void *d);
+void    *check_death(void *d);
 void    *routine_one_philo(void *d);
 void    *routine(void *data);
 
 /*free*/
 int     free_data(t_data *data);
 int     free_philos(t_philo **philo);
+
+
+int check_time_death(t_data *data, t_philo *philo);
+void    *check_meals(void *d);
 
 
 #endif

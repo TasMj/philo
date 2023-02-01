@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:46 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/31 13:41:49 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/01 13:02:05 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,17 @@ int	print_status(char s, t_philo *philo, t_data *data)
 	if (s == 'f')
 		printf("\033[1;33m%ld\033[0m %d \033[35m%s\033[0m \U0001f374\n", timestamp, philo->id, FORK);
 	if (s == 'e')
-	{
 		printf("\033[1;33m%ld\033[0m %d \033[36m%s\033[m \U0001f355\n", timestamp, philo->id, EAT);
-		philo->last_meal = timestamp;
-	}
 	if (s == 's')
 		printf("\033[1;33m%ld\033[0m %d \033[1;32m%s\033[0m \U0001f6CC\n", timestamp, philo->id, SLEEP);
 	if (s == 't')
 		printf("\033[1;33m%ld\033[0m %d \033[33m%s\033[0m \U0001f914\n", timestamp, philo->id, THINK);
 	if (s == 'd')
 	{
-		printf("\033[1;33m%ld\033[0m %d %s\031[0m \U0001f480\n", timestamp, philo->id, DIED);
+		printf("\033[1;33m%ld\033[0m %d \033[31m%s\033[0m \U0001f480\n", timestamp, philo->id, DIED);
 		return (1);
 	}
 	pthread_mutex_unlock(data->print_lock);
+	philo->last_meal = timestamp;
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:14 by tmejri            #+#    #+#             */
-/*   Updated: 2023/01/31 11:34:25 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/01 13:47:06 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ int main(int argc, char **argv)
 	init_philo(philo, &data);
 	if (data.nb_of_philo != 1)
 		init_thread(&data);
-	// printf("\n\nEXIT MAIN\n");
+	printf("\n\nEXIT MAIN\n");
 	return (0);
 }
