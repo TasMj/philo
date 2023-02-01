@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/01/31 13:53:52 by tas              ###   ########.fr       */
+/*   Updated: 2023/01/31 14:24:27 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int init_philo(t_philo **philo,t_data *data)
         philo[i]->data = data;
         philo[i]->id = i + 1;
         philo[i]->meals_took = 0;
+        philo[i]->last_meal = 0;
         philo[i]->left_fork = philo[i]->id;
         philo[i]->right_fork = philo[i]->id + 1;
         if (i == data->nb_of_philo - 1)
