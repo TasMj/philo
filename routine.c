@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/01 13:48:00 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/03 16:21:33 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void    *routine_one_philo(void *d)
 
 int eat(t_philo *philo, t_data *data)
 {
-    if ((philo->meals_took == 0) && (philo->id % 2 == 0)) //first round
+    if ((philo->meals_took == 0) && (philo->id % 2 == 0))
         usleep(200 * 1000);
     pthread_mutex_lock(&data->forks_lock[philo->left_fork]);
     print_status('f', philo, data);

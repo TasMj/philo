@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:33:05 by tas               #+#    #+#             */
-/*   Updated: 2023/02/03 00:57:51 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/03 15:41:44 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int free_data(t_data *data)
 {
     free(data->forks_lock);
     free(data->dead_lock);
-    free(data->meals_lock);
     free(data->print_lock);
     free(data->philo);
     free(data->first_philo);

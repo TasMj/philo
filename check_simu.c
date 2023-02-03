@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:16:27 by tas               #+#    #+#             */
-/*   Updated: 2023/02/01 13:47:33 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/03 16:13:59 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void    *check_death(void *d)
 
     data = d;
     philo = data->first_philo;
-    // printf("JE SUPERVISE\n");
-
     while (data->flag_simu == 0)
     {
         i = 0;
@@ -41,7 +39,6 @@ void    *check_death(void *d)
             {
                 pthread_mutex_unlock(data->print_lock);
                 print_status('d', philo[i], data);
-                data->flag_simu = 1;
                 pthread_mutex_lock(data->print_lock);
                 return (0);
             }
@@ -60,8 +57,6 @@ void    *check_meals(void *d)
     i = 0;
     data = d;
     philo = data->first_philo;
-    // printf("JE SUPERVISE 2\n");
-
     while (data->flag_simu == 0)
     {
         if (data->nb_of_meal == -1)
