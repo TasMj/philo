@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:16:27 by tas               #+#    #+#             */
-/*   Updated: 2023/02/03 16:13:59 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/03 18:30:38 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ void    *check_meals(void *d)
                 i = 0;
             i++;
         }
+        // pthread_mutex_unlock(data->print_lock);
         printf("\033[1;31mAll the philosophers have eaten at least %d times\033[0m\n", data->nb_of_meal);
         data->flag_simu = 1;
+        // pthread_mutex_lock(data->print_lock);
         return (0);
     }
     return (0);

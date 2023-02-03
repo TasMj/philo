@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/03 16:21:33 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/03 18:29:45 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int eat(t_philo *philo, t_data *data)
     print_status('f', philo, data);
     pthread_mutex_lock(&data->forks_lock[philo->right_fork]);
     print_status('f', philo, data);
-    usleep(data->time_to_eat * 1000);
     print_status('e', philo, data);
+    usleep(data->time_to_eat * 1000);
     pthread_mutex_unlock(&data->forks_lock[philo->left_fork]);
     pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
     philo->meals_took++;
@@ -44,9 +44,9 @@ int eat(t_philo *philo, t_data *data)
 
 int sleep_and_think(t_philo *philo, t_data *data)
 {
-    usleep(data->time_to_sleep * 1000);
     print_status('s', philo, data);
-    print_status('t', philo, data);
+    usleep(data->time_to_sleep * 1000);
+    print_status('t', philo, philo->data);
     return (0);
 }
 
@@ -58,7 +58,9 @@ void    *routine(void *d)
     while (philo->data->flag_simu == 0)
     {
         eat(philo, philo->data);
-        sleep_and_think(philo, philo->data);
+        printf("nb meals took: %d\n", philo->meals_took);
+        // if (philo->meals_took != philo->data->nb_of_meal)
+            sleep_and_think(philo, philo->data);
     }
     return (0);
 }
