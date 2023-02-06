@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/03 18:29:45 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/06 16:23:06 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int eat(t_philo *philo, t_data *data)
     print_status('f', philo, data);
     print_status('e', philo, data);
     usleep(data->time_to_eat * 1000);
-    pthread_mutex_unlock(&data->forks_lock[philo->left_fork]);
     pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
+    pthread_mutex_unlock(&data->forks_lock[philo->left_fork]);
     philo->meals_took++;
     return (0);
 }
@@ -53,13 +53,12 @@ int sleep_and_think(t_philo *philo, t_data *data)
 void    *routine(void *d)
 {
     t_philo  *philo;
-
     philo = d;
     while (philo->data->flag_simu == 0)
     {
-        eat(philo, philo->data);
-        printf("nb meals took: %d\n", philo->meals_took);
-        // if (philo->meals_took != philo->data->nb_of_meal)
+        if(philo->data->flag_simu != 1 && philo->meals_took < philo->data->nb_of_meal)
+            eat(philo, philo->data);
+        if(philo->data->flag_simu != 1 && philo->meals_took < philo->data->nb_of_meal)
             sleep_and_think(philo, philo->data);
     }
     return (0);

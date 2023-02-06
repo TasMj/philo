@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:16:27 by tas               #+#    #+#             */
-/*   Updated: 2023/02/03 18:30:38 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/06 15:52:19 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void    *check_death(void *d)
     philo = data->first_philo;
     while (data->flag_simu == 0)
     {
+        // pthread_mutex_lock(data->print_lock);
         i = 0;
         while (i < data->nb_of_philo)
         {
@@ -44,6 +45,7 @@ void    *check_death(void *d)
             }
             i++;
         }
+        // pthread_mutex_unlock(data->print_lock);
     }
     return (0);
 }
@@ -57,8 +59,10 @@ void    *check_meals(void *d)
     i = 0;
     data = d;
     philo = data->first_philo;
+    // pthread_mutex_lock(data->print_lock);
     while (data->flag_simu == 0)
     {
+        // pthread_mutex_lock(data->dead_lock);
         if (data->nb_of_meal == -1)
             return (0);
         while (philo[i])
@@ -66,11 +70,11 @@ void    *check_meals(void *d)
             if ((philo[i]->meals_took < data->nb_of_meal))
                 i = 0;
             i++;
+            // pthread_mutex_unlock(data->dead_lock);
         }
-        // pthread_mutex_unlock(data->print_lock);
-        printf("\033[1;31mAll the philosophers have eaten at least %d times\033[0m\n", data->nb_of_meal);
         data->flag_simu = 1;
-        // pthread_mutex_lock(data->print_lock);
+        printf("\033[1;31mAll the philosophers have eaten at least %d times\033[0m\n", data->nb_of_meal);
+        // pthread_mutex_unlock(data->print_lock);
         return (0);
     }
     return (0);

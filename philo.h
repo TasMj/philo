@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/03 16:05:27 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/06 15:37:42 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,13 @@ typedef struct s_data
     time_t          start_time;
     int             nb_of_meal;
     int             flag_simu;
+    
     pthread_mutex_t *forks_lock;
     pthread_mutex_t *dead_lock;
     pthread_mutex_t *print_lock;
+    pthread_mutex_t *meal_lock;
+
+
     struct s_philo  *philo;
     struct s_philo  **first_philo;
     pthread_t       watch_death;
