@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:46 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/03 16:26:07 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/06 18:58:36 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	print_status(char s, t_philo *philo, t_data *data)
 	if (s == 'd')
 	{
 		printf("\033[1;33m%ld\033[0m %d \033[31m%s\033[0m \U0001f480\n", timestamp, philo->id, DIED);
+		pthread_mutex_unlock(data->print_lock);
 		return (1);
 	}
 	pthread_mutex_unlock(data->print_lock);

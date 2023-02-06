@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/06 16:23:06 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/06 19:33:31 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@ void    *routine_one_philo(void *d)
     return (0);
 }
 
-
 int eat(t_philo *philo, t_data *data)
 {
     if ((philo->meals_took == 0) && (philo->id % 2 == 0))
         usleep(200 * 1000);
     pthread_mutex_lock(&data->forks_lock[philo->left_fork]);
     print_status('f', philo, data);
+    //check is_dead
     pthread_mutex_lock(&data->forks_lock[philo->right_fork]);
     print_status('f', philo, data);
+    //check is_dead
+    
     print_status('e', philo, data);
     usleep(data->time_to_eat * 1000);
     pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
@@ -46,6 +48,7 @@ int sleep_and_think(t_philo *philo, t_data *data)
 {
     print_status('s', philo, data);
     usleep(data->time_to_sleep * 1000);
+    //check is_dead
     print_status('t', philo, philo->data);
     return (0);
 }
@@ -54,12 +57,20 @@ void    *routine(void *d)
 {
     t_philo  *philo;
     philo = d;
-    while (philo->data->flag_simu == 0)
+    // while (check_simu(data) == 0 ,philo->data->flag_simu == 0)
+    printf("(%d) start ROUTINE\n\\n", philo->id);
+    while (check_simu(philo->data) == 0)
     {
-        if(philo->data->flag_simu != 1 && philo->meals_took < philo->data->nb_of_meal)
+        if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
+                || philo->data->nb_of_meal == -1))
+    //check is_dead
             eat(philo, philo->data);
-        if(philo->data->flag_simu != 1 && philo->meals_took < philo->data->nb_of_meal)
+        if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
+                || philo->data->nb_of_meal == -1))
+    //check is_dead
             sleep_and_think(philo, philo->data);
+        printf("(%d) a1\n", philo->id);
     }
+    printf("(%d) END ROUTINE\n\n", philo->id);
     return (0);
 }
