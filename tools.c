@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:46 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/06 18:58:36 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/06 22:09:01 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,22 @@ int	print_status(char s, t_philo *philo, t_data *data)
 	}
 	pthread_mutex_unlock(data->print_lock);
 	return (0);
+}
+
+int u_sleep(t_data *data, int time)
+{
+	printf("time: %d\n", time);
+	usleep(time / 4);
+	if (check_simu(data) == 1)
+		return (0);
+	usleep(time / 4);
+	if (check_simu(data) == 1)
+		return (0);
+	usleep(time / 4);
+	if (check_simu(data) == 1)
+		return (0);
+	usleep(time / 4);
+	if (check_simu(data) == 1)
+		return (0);
+	return (0);	
 }

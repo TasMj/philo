@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_simu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:16:27 by tas               #+#    #+#             */
-/*   Updated: 2023/02/06 19:34:54 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/06 21:53:11 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int check_simu(t_data *data)
 {
     int res;
     pthread_mutex_lock(data->dead_lock);
-    printf("change la valeur flag mort a %d\n\n", data->flag_simu);
+    // printf("change la valeur flag mort a %d\n\n", data->flag_simu);
     res = data->flag_simu;
     pthread_mutex_unlock(data->dead_lock);
     return (res);
@@ -58,7 +58,6 @@ void    *check_death(void *d)
         {
             if (check_time_death(data, philo[i]) == 1)
             {
-                printf("%d passe par la\n\n\n", philo[i]->id);
                 // pthread_mutex_lock(data->print_lock);
                 print_status('d', philo[i], data);
                 // pthread_mutex_unlock(data->print_lock);
