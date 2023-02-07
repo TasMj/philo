@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/06 22:15:59 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/07 10:07:13 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,14 @@ void    *routine(void *d)
 {
     t_philo  *philo;
     philo = d;
-    // printf("(%d) start ROUTINE\n\\n", philo->id);
     while (check_simu(philo->data) == 0)
     {
-        if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
-                || philo->data->nb_of_meal == -1))
-    // check_simu(philo->data);
+        // if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
+                // || philo->data->nb_of_meal == -1))
             eat(philo, philo->data);
-        if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
-                || philo->data->nb_of_meal == -1))
-    // check_simu(philo->data);
+        // if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
+                // || philo->data->nb_of_meal == -1))
             sleep_and_think(philo, philo->data);
     }
-    // printf("(%d) END ROUTINE\n\n", philo->id);
     return (0);
 }
