@@ -6,23 +6,23 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:46 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/07 09:56:59 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/08 01:05:33 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int get_time()
+int	get_time()
 {
-    struct timeval tv;
-    
-    gettimeofday(&tv, NULL);
-    return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
 int	print_status(char s, t_philo *philo, t_data *data)
 {
-	time_t timestamp; //le temps actuel depuis le debut
+	time_t	timestamp;
 
 	timestamp = get_time() - data->start_time;
 	pthread_mutex_lock(data->print_lock);
@@ -46,21 +46,3 @@ int	print_status(char s, t_philo *philo, t_data *data)
 	pthread_mutex_unlock(data->print_lock);
 	return (0);
 }
-
-// int u_sleep(t_data *data, int time)
-// {
-// 	printf("time: %d\n", time);
-// 	usleep(time / 4);
-// 	if (check_simu(data) == 1)
-// 		return (0);
-// 	usleep(time / 4);
-// 	if (check_simu(data) == 1)
-// 		return (0);
-// 	usleep(time / 4);
-// 	if (check_simu(data) == 1)
-// 		return (0);
-// 	usleep(time / 4);
-// 	if (check_simu(data) == 1)
-// 		return (0);
-// 	return (0);	
-// }
