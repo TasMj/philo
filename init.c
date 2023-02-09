@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/02/08 01:08:41 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/09 20:19:28 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,21 +117,15 @@ int	init_mutex(t_data *data)
 	data->forks_lock = malloc(sizeof(pthread_mutex_t) * (data->nb_of_philo + 1));
 	if (!data->forks_lock)
 		return (err_msg(6));
-	data->dead_lock = malloc(sizeof(pthread_mutex_t) * 1);
-	if (!data->dead_lock)
-		return (err_msg(6));
-	data->print_lock = malloc(sizeof(pthread_mutex_t) * 1);
-	if (!data->print_lock)
-		return (err_msg(6));
 	while (i < data->nb_of_philo)
 	{
 		if (pthread_mutex_init(&data->forks_lock[i], NULL) != 0)
 			return (err_msg(7));
 		i++;
 	}
-	if (pthread_mutex_init(data->dead_lock, NULL) != 0)
+	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
 		return (err_msg(7));
-	if (pthread_mutex_init(data->print_lock, NULL) != 0)
+	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
 		return (err_msg(7));
 	return (0);
 }

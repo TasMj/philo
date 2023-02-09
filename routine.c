@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/08 01:00:25 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/09 21:04:21 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ void	*routine(void *d)
 	philo = d;
 	while (check_simu(philo->data) == 0)
 	{
-	    // if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
+	    //if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
 	            // || philo->data->nb_of_meal == -1))
 		 eat(philo, philo->data);
-	    // if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
-	            // || philo->data->nb_of_meal == -1))
+	    //if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
+	         //   || philo->data->nb_of_meal == -1))
 		sleep_and_think(philo, philo->data);
 	}
 	return (0);

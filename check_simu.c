@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_simu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:16:27 by tas               #+#    #+#             */
-/*   Updated: 2023/02/08 00:36:43 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/09 20:08:03 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,30 @@ int	check_simu(t_data *data)
 {
 	int	res;
 
-	pthread_mutex_lock(data->dead_lock);
+	pthread_mutex_lock(&data->dead_lock);
 	res = data->flag_simu;
-	pthread_mutex_unlock(data->dead_lock);
+	pthread_mutex_unlock(&data->dead_lock);
 	return (res);
 }
 
 int	incr_simu(t_data *data)
 {
-	pthread_mutex_lock(data->dead_lock);
+	pthread_mutex_lock(&data->dead_lock);
 	data->flag_simu = 1;
-	pthread_mutex_unlock(data->dead_lock);
+	pthread_mutex_unlock(&data->dead_lock);
 	return (0);
 }
 
 int	check_time_death(t_data *data, t_philo *philo)
 {
+	pthread_mutex_lock(&data->print_lock);
 	if (((get_time() - data->start_time) - philo->last_meal) > data->time_to_die)
 	{
 		incr_simu(data);
+		pthread_mutex_unlock(&data->print_lock);
 		return (1);
 	}
+	pthread_mutex_unlock(&data->print_lock);
 	return (0);
 }
 
