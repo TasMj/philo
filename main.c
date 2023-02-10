@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:14 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/09 21:07:11 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/10 19:53:32 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ int	main(int argc, char **argv)
 		return (err_msg(0));
 	if (arg_valid(argv) == 1)
 		return (err_msg(4));
-	init_data(&data, argv, argc);
+	if (init_data(&data, argv, argc) != 0)
+		return (0);
 	init_mutex(&data);
 	init_philo(philo, &data);
 	if (data.nb_of_philo != 1)
 		init_thread(&data);
 	free_all(&data, philo);
-	printf("\n\nEXIT MAIN\n");
+	// printf("\n\nEXIT MAIN\n");
 	return (0);
 }

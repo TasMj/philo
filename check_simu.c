@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:16:27 by tas               #+#    #+#             */
-/*   Updated: 2023/02/09 20:08:03 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/10 20:37:45 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	*check_death(void *d)
 
 	data = d;
 	philo = data->first_philo;
-	while (data->flag_simu == 0)
+	while (!check_simu(data))
 	{
 		i = 0;
 		while (i < data->nb_of_philo)
@@ -80,11 +80,14 @@ void	*check_meals(void *d)
 	{
 		if (data->nb_of_meal == -1)
 			return (0);
+		
 		while (philo[i] && check_simu(data) == 0)
 		{
+			pthread_mutex_lock(&data->meal_lock);
 			if ((philo[i]->meals_took < data->nb_of_meal))
 				i = 0;
 			i++;
+			pthread_mutex_unlock(&data->meal_lock);
 		}
 		incr_simu(data);
 		printf("\033[1;31mAll the philosophers have eaten at least %d times\033[0m\n", data->nb_of_meal);

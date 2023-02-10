@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/09 20:05:23 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/10 20:16:40 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ int		ft_atoi(const char *nptr);
 /*tools*/
 int		get_time();
 int		print_status(char s, t_philo *philo, t_data *data);
+int		u_sleep(t_data *data, time_t time);
+
 
 /*routine*/
 void	*routine_one_philo(void *d);

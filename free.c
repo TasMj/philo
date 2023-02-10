@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:33:05 by tas               #+#    #+#             */
-/*   Updated: 2023/02/09 21:07:23 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/10 19:58:27 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	free_philos(t_philo **philo, t_data *data)
 	int	i;
 
 	i = 0;
-	philo = data->first_philo;
 	while (i < data->nb_of_philo)
 	{
 		free(philo[i]);

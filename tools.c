@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:46 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/09 20:10:07 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/10 20:53:18 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,20 @@ int	print_status(char s, t_philo *philo, t_data *data)
 		return (1);
 	}
 	pthread_mutex_unlock(&data->print_lock);
+	return (0);
+}
+
+int	u_sleep(t_data *data, time_t time)
+{
+	time_t i;
+	
+	i = 0;
+	while(i <= time)
+	{
+		if (check_simu(data) == 1)
+			return(0);
+		usleep(time / 50);
+		i += (time / 50);
+	}
 	return (0);
 }

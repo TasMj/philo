@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/02/09 20:19:28 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/10 19:59:12 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	init_data(t_data *data, char **argv, int argc)
 int	init_only_one_philo(t_philo **philo, t_data *data)
 {
 	philo[0] = malloc(sizeof(t_philo) * 1);
+	data->first_philo = &philo[0];
 	if (!philo[0])
 		return (err_msg(6));
 	(*philo)[0].id = 1;
@@ -71,7 +72,8 @@ int	init_philo(t_philo **philo, t_data *data)
 		philo[i]->right_fork = philo[i]->id + 1;
 		if (i == data->nb_of_philo - 1)
 		{
-			philo[i]->right_fork = 1;
+			philo[i]->left_fork = 1;
+			philo[i]->right_fork = philo[i]->id;
 		}
 		i++;
 	}
