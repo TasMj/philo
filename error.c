@@ -6,7 +6,7 @@
 /*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:52:57 by tas               #+#    #+#             */
-/*   Updated: 2023/02/08 00:37:19 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/11 12:35:58 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ int	err_msg(int n)
 		write(1, ERR_MALLOC, ft_strlen(ERR_MALLOC));
 	if (n == 7)
 		write(1, ERR_MUTEX, ft_strlen(ERR_MUTEX));
+	if (n == 8)
+		write(1, ERR_NO_MEAL, ft_strlen(ERR_NO_MEAL));
 	return (1);
 }

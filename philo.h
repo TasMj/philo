@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/10 20:16:40 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/11 13:03:30 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,17 @@
 
 /*Errors*/
 # define ERR_ARG "Not the right amount of arguments.\n"
-# define ERR_ARG_DIGIT "You must enter only positif digits.\n"
+# define ERR_ARG_DIGIT "You must enter only positif digits. Be careful with \
+overflow.\n"
 # define ERR_ARG_OF "Problem overflow.\n"
 # define ERR_NB_PHILO "You need to have at least 1 philosopher.\n"
 # define ERR_ARGS_NO_VALID "Please enter:\n\t<nb of philosopher> <time to die> \
 <time to eat> <time to sleep> <nb of meal (facultatif)>.\n"
 # define ERR_THREAD "Failed to create thread.\n"
-# define ERR_MALLOC "Malloc failled\n"
-# define ERR_MUTEX "Mutex initialisation failled\n"
+# define ERR_MALLOC "Malloc failled.\n"
+# define ERR_MUTEX "Mutex initialisation failled.\n"
+# define ERR_NO_MEAL "The simulation will not start, because they have already \
+eaten 0 meal.\n"
 
 /*Philo status*/
 # define FORK "has taken a fork"

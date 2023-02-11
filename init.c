@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/02/10 19:59:12 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/11 12:36:12 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int	init_data(t_data *data, char **argv, int argc)
 	data->start_time = get_time();
 	data->flag_simu = 0;
 	if (argc == 6)
+	{
 		data->nb_of_meal = ft_atoi(argv[5]);
+		if (data->nb_of_meal == 0)
+			return (err_msg(8));
+	}
 	else if (argc == 5)
 		data->nb_of_meal = -1;
 	return (0);

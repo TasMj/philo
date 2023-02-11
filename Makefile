@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+         #
+#    By: tas <tas@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/12 12:26:34 by tmejri            #+#    #+#              #
-#    Updated: 2023/02/10 20:51:57 by tmejri           ###   ########.fr        #
+#    Updated: 2023/02/11 12:27:20 by tas              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJS			= ${SRCS:.c=.o}
 CC				= gcc
 RM				= rm -f
 CFLAGS			= -Wall -Wextra -Werror -g3 -pthread 
-CFLAGS			+= -fsanitize=thread
+# CFLAGS			+= -fsanitize=thread
 # CFLAGS			+= -fsanitize=address
 
 
