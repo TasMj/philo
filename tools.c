@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:46 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/10 20:53:18 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/13 12:09:27 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	print_status(char s, t_philo *philo, t_data *data)
 int	u_sleep(t_data *data, time_t time)
 {
 	time_t i;
-	
+
 	i = 0;
 	while(i <= time)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/11 12:23:45 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/13 12:23:04 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ int	eat(t_philo *philo, t_data *data)
 		print_status('f', philo, data);
 		print_status('e', philo, data);
 	}
-	if (data->time_to_eat > data->time_to_die)
-		u_sleep(data, data->time_to_eat * 1000);
+	if (data->time_to_eat 	> data->time_to_die)
+		usleep(data->time_to_die * 1000);
+		// u_sleep(data, data->time_to_eat * 1000);
 	else
 		usleep(data->time_to_eat * 1000);
 	pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
@@ -56,7 +57,8 @@ int	sleep_and_think(t_philo *philo, t_data *data)
 	if (check_simu(data) == 0)
 		print_status('s', philo, data);
 	if (data->time_to_sleep > data->time_to_die)
-		u_sleep(data, data->time_to_sleep * 1000);
+		usleep(data->time_to_die * 1000);
+		// u_sleep(data, data->time_to_sleep * 1000);
 	else
 		usleep(data->time_to_sleep * 1000);
 	if (check_simu(data) == 0)
