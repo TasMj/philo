@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/14 13:48:21 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/14 17:31:19 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,16 +125,12 @@ int		get_time();
 int		print_status(char s, t_philo *philo, t_data *data);
 int		u_sleep(t_data *data, time_t time);
 
-
 /*routine*/
 void	*routine_one_philo(void *d);
 int		eat(t_philo *philo, t_data *data);
 int		sleep_and_think(t_philo *philo, t_data *data);
 void	*routine(void *data);
-
-int	odd_eat(t_philo *philo, t_data *data);
-int	three_eat(t_philo *philo, t_data *data);
-
-
+int		odd_eat(t_philo *philo, t_data *data);
+int		three_eat(t_philo *philo, t_data *data);
 
 #endif

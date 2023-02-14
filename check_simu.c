@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_simu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:16:27 by tas               #+#    #+#             */
-/*   Updated: 2023/02/10 20:37:45 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/14 17:27:59 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	*check_meals(void *d)
 	{
 		if (data->nb_of_meal == -1)
 			return (0);
-		
 		while (philo[i] && check_simu(data) == 0)
 		{
 			pthread_mutex_lock(&data->meal_lock);

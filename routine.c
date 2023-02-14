@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/14 16:36:44 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/14 17:36:11 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	*routine_one_philo(void *d)
-{
-	t_philo	*philo;
-
-	philo = d;
-	pthread_mutex_lock(&philo->data->forks_lock[0]);
-	printf("\033[1;33m%ld\033[0m %d \033[35m%s\033[0m \U0001f374\n", get_time() - philo->data->start_time, 1, FORK);
-	usleep(philo->data->time_to_die * 1000);
-	printf("\033[1;33m%ld\033[0m %d \033[31m%s\033[0m \U0001f480\n", get_time() - philo->data->start_time, 1, DIED);
-	pthread_mutex_unlock(&philo->data->forks_lock[0]);
-	return (0);
-}
 
 int	eat(t_philo *philo, t_data *data)
 {
@@ -40,7 +27,6 @@ int	eat(t_philo *philo, t_data *data)
 	}
 	if (data->time_to_eat > data->time_to_die)
 		u_sleep(data, data->time_to_die * 1000);
-		// usleep(data->time_to_die * 1000);
 	else
 		usleep(data->time_to_eat * 1000);
 	pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
@@ -64,32 +50,7 @@ int	sleep_and_think(t_philo *philo, t_data *data)
 	return (0);
 }
 
-void	*routine(void *d)
-{
-	t_philo	*philo;
-
-	philo = d;
-	while (check_simu(philo->data) == 0)
-	{
-		if (philo->data->nb_of_philo == 3)
-		{
-			three_eat(philo, philo->data);
-		}
-		else if (philo->data->nb_of_philo % 2 != 0 && philo->data->nb_of_philo > 3)
-		{
-			odd_eat(philo, philo->data);
-		}
-		else
-		{
-			eat(philo, philo->data);
-			sleep_and_think(philo, philo->data);
-		}
-	}
-	return (0);
-}
-
-/*nb imp de philo*/
-
+/*odd number of philo*/
 int	odd_eat(t_philo *philo, t_data *data)
 {
 	if ((philo->meals_took == 0) && (philo->id == data->nb_of_philo && data->nb_of_philo > 3))
@@ -115,15 +76,14 @@ int	odd_eat(t_philo *philo, t_data *data)
 	philo->meals_took++;
 	pthread_mutex_unlock(&data->meal_lock);
 	sleep_and_think(philo, data);
-	// if (philo->id != data->nb_of_philo && data->nb_of_philo % 2 != 0)
-		// usleep(data->time_to_eat);
-		
+	if (data->time_to_sleep < data->time_to_eat)
+		usleep((data->time_to_eat + data->time_to_sleep) * 1000);
+	else
 		usleep((data->time_to_eat + data->time_to_sleep));
-
 	return (0);
 }
 
-/*eat for 3*/
+/*eat for 3 philos because they have to eat one by one*/
 int	three_eat(t_philo *philo, t_data *data)
 {
 	if ((philo->meals_took == 0) && philo->id == 2)
@@ -153,6 +113,22 @@ int	three_eat(t_philo *philo, t_data *data)
 	return (0);
 }
 
+void	*routine(void *d)
+{
+	t_philo	*philo;
 
-	    //if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
-	            // || philo->data->nb_of_meal == -1))
+	philo = d;
+	while (check_simu(philo->data) == 0)
+	{
+		if (philo->data->nb_of_philo == 3)
+			three_eat(philo, philo->data);
+		else if (philo->data->nb_of_philo % 2 != 0 && philo->data->nb_of_philo > 3)
+			odd_eat(philo, philo->data);
+		else
+		{
+			eat(philo, philo->data);
+			sleep_and_think(philo, philo->data);
+		}
+	}
+	return (0);
+}

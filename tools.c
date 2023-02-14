@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:29:46 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/13 12:09:27 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/14 17:43:47 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,30 @@ int	print_status(char s, t_philo *philo, t_data *data)
 
 int	u_sleep(t_data *data, time_t time)
 {
-	time_t i;
+	time_t	i;
 
 	i = 0;
-	while(i <= time)
+	while (i <= time)
 	{
 		if (check_simu(data) == 1)
-			return(0);
+			return (0);
 		usleep(time / 50);
 		i += (time / 50);
 	}
+	return (0);
+}
+
+void	*routine_one_philo(void *d)
+{
+	t_philo	*philo;
+
+	philo = d;
+	pthread_mutex_lock(&philo->data->forks_lock[0]);
+	printf("\033[1;33m%ld\033[0m %d \033[35m%s\033[0m \U0001f374\n", \
+	get_time() - philo->data->start_time, 1, FORK);
+	usleep(philo->data->time_to_die * 1000);
+	printf("\033[1;33m%ld\033[0m %d \033[31m%s\033[0m \U0001f480\n", \
+	get_time() - philo->data->start_time, 1, DIED);
+	pthread_mutex_unlock(&philo->data->forks_lock[0]);
 	return (0);
 }
