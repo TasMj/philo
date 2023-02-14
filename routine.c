@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/14 14:19:07 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/14 16:36:44 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,12 @@ void	*routine(void *d)
 	{
 		if (philo->data->nb_of_philo == 3)
 		{
-			// printf("3\n");
 			three_eat(philo, philo->data);
 		}
-		else if (philo->data->nb_of_philo % 2 != 0 && philo->data->nb_of_philo != 3)
+		else if (philo->data->nb_of_philo % 2 != 0 && philo->data->nb_of_philo > 3)
+		{
 			odd_eat(philo, philo->data);
+		}
 		else
 		{
 			eat(philo, philo->data);
@@ -114,8 +115,11 @@ int	odd_eat(t_philo *philo, t_data *data)
 	philo->meals_took++;
 	pthread_mutex_unlock(&data->meal_lock);
 	sleep_and_think(philo, data);
-	if (philo->id != data->nb_of_philo && data->nb_of_philo % 2 != 0)
-		usleep(data->time_to_eat);
+	// if (philo->id != data->nb_of_philo && data->nb_of_philo % 2 != 0)
+		// usleep(data->time_to_eat);
+		
+		usleep((data->time_to_eat + data->time_to_sleep));
+
 	return (0);
 }
 
