@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/13 12:23:04 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/14 14:19:07 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	*routine_one_philo(void *d)
 int	eat(t_philo *philo, t_data *data)
 {
 	if ((philo->meals_took == 0) && (philo->id % 2 == 0))
-		usleep(200 * 1000);
-		// u_sleep(data, 200 * 1000);
+		usleep(data->time_to_eat * 1000);
 	pthread_mutex_lock(&data->forks_lock[philo->left_fork]);
 	if (check_simu(data) == 0)
 		print_status('f', philo, data);
@@ -39,9 +38,9 @@ int	eat(t_philo *philo, t_data *data)
 		print_status('f', philo, data);
 		print_status('e', philo, data);
 	}
-	if (data->time_to_eat 	> data->time_to_die)
-		usleep(data->time_to_die * 1000);
-		// u_sleep(data, data->time_to_eat * 1000);
+	if (data->time_to_eat > data->time_to_die)
+		u_sleep(data, data->time_to_die * 1000);
+		// usleep(data->time_to_die * 1000);
 	else
 		usleep(data->time_to_eat * 1000);
 	pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
@@ -58,7 +57,6 @@ int	sleep_and_think(t_philo *philo, t_data *data)
 		print_status('s', philo, data);
 	if (data->time_to_sleep > data->time_to_die)
 		usleep(data->time_to_die * 1000);
-		// u_sleep(data, data->time_to_sleep * 1000);
 	else
 		usleep(data->time_to_sleep * 1000);
 	if (check_simu(data) == 0)
@@ -73,12 +71,84 @@ void	*routine(void *d)
 	philo = d;
 	while (check_simu(philo->data) == 0)
 	{
-	    //if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
-	            // || philo->data->nb_of_meal == -1))
-		 eat(philo, philo->data);
-	    //if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
-	         //   || philo->data->nb_of_meal == -1))
-		sleep_and_think(philo, philo->data);
+		if (philo->data->nb_of_philo == 3)
+		{
+			// printf("3\n");
+			three_eat(philo, philo->data);
+		}
+		else if (philo->data->nb_of_philo % 2 != 0 && philo->data->nb_of_philo != 3)
+			odd_eat(philo, philo->data);
+		else
+		{
+			eat(philo, philo->data);
+			sleep_and_think(philo, philo->data);
+		}
 	}
 	return (0);
 }
+
+/*nb imp de philo*/
+
+int	odd_eat(t_philo *philo, t_data *data)
+{
+	if ((philo->meals_took == 0) && (philo->id == data->nb_of_philo && data->nb_of_philo > 3))
+		usleep((data->time_to_eat * 1000) * 2);
+	if ((philo->meals_took == 0) && (philo->id % 2 == 0))
+		usleep(data->time_to_eat * 1000);
+	pthread_mutex_lock(&data->forks_lock[philo->left_fork]);
+	if (check_simu(data) == 0)
+		print_status('f', philo, data);
+	pthread_mutex_lock(&data->forks_lock[philo->right_fork]);
+	if (check_simu(data) == 0)
+	{
+		print_status('f', philo, data);
+		print_status('e', philo, data);
+	}
+	if (data->time_to_eat > data->time_to_die)
+		u_sleep(data, data->time_to_die * 1000);
+	else
+		usleep(data->time_to_eat * 1000);
+	pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
+	pthread_mutex_unlock(&data->forks_lock[philo->left_fork]);
+	pthread_mutex_lock(&data->meal_lock);
+	philo->meals_took++;
+	pthread_mutex_unlock(&data->meal_lock);
+	sleep_and_think(philo, data);
+	if (philo->id != data->nb_of_philo && data->nb_of_philo % 2 != 0)
+		usleep(data->time_to_eat);
+	return (0);
+}
+
+/*eat for 3*/
+int	three_eat(t_philo *philo, t_data *data)
+{
+	if ((philo->meals_took == 0) && philo->id == 2)
+		usleep(data->time_to_eat * 1000);
+	if ((philo->meals_took == 0) && philo->id == 3)
+		usleep((data->time_to_eat * 1000) * 2);
+	pthread_mutex_lock(&data->forks_lock[philo->left_fork]);
+	if (check_simu(data) == 0)
+		print_status('f', philo, data);
+	pthread_mutex_lock(&data->forks_lock[philo->right_fork]);
+	if (check_simu(data) == 0)
+	{
+		print_status('f', philo, data);
+		print_status('e', philo, data);
+	}
+	if (data->time_to_eat > data->time_to_die)
+		u_sleep(data, data->time_to_die * 1000);
+	else
+		usleep(data->time_to_eat * 1000);
+	pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
+	pthread_mutex_unlock(&data->forks_lock[philo->left_fork]);
+	pthread_mutex_lock(&data->meal_lock);
+	philo->meals_took++;
+	pthread_mutex_unlock(&data->meal_lock);
+	sleep_and_think(philo, data);
+	usleep((data->time_to_eat + data->time_to_sleep));
+	return (0);
+}
+
+
+	    //if(philo->data->flag_simu != 1 && (philo->meals_took < philo->data->nb_of_meal 
+	            // || philo->data->nb_of_meal == -1))

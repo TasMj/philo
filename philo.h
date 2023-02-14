@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/11 13:03:30 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/14 13:48:21 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,10 @@ void	*routine_one_philo(void *d);
 int		eat(t_philo *philo, t_data *data);
 int		sleep_and_think(t_philo *philo, t_data *data);
 void	*routine(void *data);
+
+int	odd_eat(t_philo *philo, t_data *data);
+int	three_eat(t_philo *philo, t_data *data);
+
+
 
 #endif
