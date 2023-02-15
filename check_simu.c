@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:16:27 by tas               #+#    #+#             */
-/*   Updated: 2023/02/15 15:42:24 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:30:16 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	incr_simu(t_data *data)
 int	check_time_death(t_data *data, t_philo *philo)
 {
 	pthread_mutex_lock(&data->print_lock);
-	if (((get_time() - data->start_time) - philo->last_meal) > data->time_to_die)
+	if (((get_time() - data->start_time) - philo->last_meal) > \
+		data->time_to_die)
 	{
 		incr_simu(data);
 		pthread_mutex_unlock(&data->print_lock);
@@ -90,7 +91,6 @@ void	*check_meals(void *d)
 			pthread_mutex_unlock(&data->meal_lock);
 		}
 		incr_simu(data);
-		// printf("\033[1;31mAll the philosophers have eaten at least %d times\033[0m\n", data->nb_of_meal);
 		return (0);
 	}
 	return (0);

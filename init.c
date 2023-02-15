@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/02/15 16:18:15 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:55:01 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,6 @@ int	init_data(t_data *data, char **argv, int argc)
 	}
 	else if (argc == 5)
 		data->nb_of_meal = -1;
-	return (0);
-}
-
-int	init_only_one_philo(t_philo **philo, t_data *data)
-{
-	philo[0] = malloc(sizeof(t_philo) * 1);
-	data->first_philo = &philo[0];
-	if (!philo[0])
-		return (err_msg(6));
-	(*philo)[0].id = 1;
-	(*philo)[0].data = data;
-	(*philo)[0].left_fork = (*philo)[0].id;
-	if (pthread_create(&(*philo)[0].thread, NULL, &routine_one_philo, \
-		&(*philo)[0]) != 0)
-		return (err_msg(5));
-	if (pthread_join((*philo)[0].thread, NULL) != 0)
-		return (err_msg(5));
 	return (0);
 }
 
@@ -86,20 +69,6 @@ int	init_philo(t_philo **philo, t_data *data)
 	while (i < data->nb_of_philo)
 	{
 		fill_philo(philo, data, i);
-		// philo[i] = malloc(sizeof(t_philo) * 1);
-		// if (!philo[i])
-		// 	return (err_msg(6));
-		// philo[i]->data = data;
-		// philo[i]->id = i + 1;
-		// philo[i]->meals_took = 0;
-		// philo[i]->last_meal = 0;
-		// philo[i]->left_fork = philo[i]->id;
-		// philo[i]->right_fork = philo[i]->id + 1;
-		// if (i == data->nb_of_philo - 1)
-		// {
-		// 	philo[i]->left_fork = 1;
-		// 	philo[i]->right_fork = philo[i]->id;
-		// }
 		i++;
 	}
 	return (0);
@@ -129,10 +98,7 @@ int	init_thread(t_data *data)
 			return (err_msg(5));
 		i++;
 	}
-	if (pthread_join(data->watch_death, NULL) != 0)
-		return (err_msg(5));
-	if (pthread_join(data->watch_meals, NULL) != 0)
-		return (err_msg(5));
+	join_thread(data);
 	return (0);
 }
 

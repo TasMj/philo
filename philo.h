@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/14 17:31:19 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/15 17:11:26 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,12 @@ int		free_all(t_data *data, t_philo **philo);
 
 /*init*/
 int		init_data(t_data *data, char **argv, int argc);
+int		fill_philo(t_philo **philo, t_data *data, int i);
 int		init_only_one_philo(t_philo **philo, t_data *data);
 int		init_philo(t_philo **philo, t_data *data);
 int		init_thread(t_data *data);
 int		init_mutex(t_data *data);
+int		join_thread(t_data *data);
 
 /*parsing*/
 int		check_digit(char *str);
@@ -121,16 +123,18 @@ int		ft_strlen(char *str);
 int		ft_atoi(const char *nptr);
 
 /*tools*/
-int		get_time();
+int		get_time(void);
+void	print_annex(char s, t_philo *philo, time_t timestamp);
 int		print_status(char s, t_philo *philo, t_data *data);
 int		u_sleep(t_data *data, time_t time);
+void	fork_process(t_philo *philo, t_data *data);
 
 /*routine*/
 void	*routine_one_philo(void *d);
 int		eat(t_philo *philo, t_data *data);
 int		sleep_and_think(t_philo *philo, t_data *data);
-void	*routine(void *data);
 int		odd_eat(t_philo *philo, t_data *data);
 int		three_eat(t_philo *philo, t_data *data);
+void	*routine(void *data);
 
 #endif

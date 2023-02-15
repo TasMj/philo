@@ -6,14 +6,14 @@
 #    By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/12 12:26:34 by tmejri            #+#    #+#              #
-#    Updated: 2023/02/15 15:34:54 by tmejri           ###   ########.fr        #
+#    Updated: 2023/02/15 16:26:14 by tmejri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= philo
 
 SRCS			= check_simu.c error.c free.c init.c main.c parsing.c routine.c \
-				tools.c \
+				tools.c tools_init.c \
 
 OBJS			= ${SRCS:.c=.o}
 

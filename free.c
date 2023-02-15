@@ -6,13 +6,12 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:33:05 by tas               #+#    #+#             */
-/*   Updated: 2023/02/10 19:58:27 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/15 17:04:22 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*free philo*/
 int	free_philos(t_philo **philo, t_data *data)
 {
 	int	i;
@@ -27,7 +26,6 @@ int	free_philos(t_philo **philo, t_data *data)
 	return (0);
 }
 
-/*free data*/
 int	free_data(t_data *data)
 {
 	free(data->forks_lock);
@@ -35,7 +33,6 @@ int	free_data(t_data *data)
 	return (0);
 }
 
-/*free mutex*/
 void	destroy_mutex(t_data *data)
 {
 	int	i;
@@ -52,7 +49,6 @@ void	destroy_mutex(t_data *data)
 	pthread_mutex_destroy(&data->print_lock);
 }
 
-/*free all at the end*/
 int	free_all(t_data *data, t_philo **philo)
 {
 	destroy_mutex(data);
