@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:16:27 by tas               #+#    #+#             */
-/*   Updated: 2023/02/15 16:30:16 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/15 19:58:37 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	*check_death(void *d)
 			if (check_time_death(data, philo[i]) == 1)
 			{
 				print_status('d', philo[i], data);
-				return (NULL);
+				return (0);
 			}
 			i++;
 		}
 		usleep(10);
 	}
-	return (NULL);
+	return (0);
 }
 
 void	*check_meals(void *d)
