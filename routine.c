@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/15 20:59:26 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/15 21:10:20 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	fork_process(t_philo *philo, t_data *data)
 
 int	eat(t_philo *philo, t_data *data)
 {
-	if ((philo->meals_took == 0) && (philo->id % 2 == 0))
+	if ((philo->meals_took == 0) && (philo->id % 2 == 0) && check_simu(data))
 		u_sleep(data, data->time_to_eat / 3);
 	fork_process(philo, data);
 	u_sleep(data, data->time_to_eat);

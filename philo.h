@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:27:57 by tmejri            #+#    #+#             */
-/*   Updated: 2023/02/15 20:01:05 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/15 21:08:21 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ void	*routine_one_philo(void *d);
 int		eat(t_philo *philo, t_data *data);
 int		sleep_and_think(t_philo *philo, t_data *data);
 int		odd_eat(t_philo *philo, t_data *data);
-int		three_eat(t_philo *philo, t_data *data);
 void	*routine(void *data);
 
 #endif
