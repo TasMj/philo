@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:16:27 by tas               #+#    #+#             */
-/*   Updated: 2023/02/14 18:31:01 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/15 15:42:24 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	*check_meals(void *d)
 			pthread_mutex_unlock(&data->meal_lock);
 		}
 		incr_simu(data);
-		printf("\033[1;31mAll the philosophers have eaten at least %d times\033[0m\n", data->nb_of_meal);
+		// printf("\033[1;31mAll the philosophers have eaten at least %d times\033[0m\n", data->nb_of_meal);
 		return (0);
 	}
 	return (0);

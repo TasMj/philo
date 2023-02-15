@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/02/14 18:38:06 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:18:15 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,30 @@ int	init_only_one_philo(t_philo **philo, t_data *data)
 	(*philo)[0].id = 1;
 	(*philo)[0].data = data;
 	(*philo)[0].left_fork = (*philo)[0].id;
-	if (pthread_create(&(*philo)[0].thread, NULL, &routine_one_philo, &(*philo)[0]) != 0)
+	if (pthread_create(&(*philo)[0].thread, NULL, &routine_one_philo, \
+		&(*philo)[0]) != 0)
 		return (err_msg(5));
 	if (pthread_join((*philo)[0].thread, NULL) != 0)
 		return (err_msg(5));
+	return (0);
+}
+
+int	fill_philo(t_philo **philo, t_data *data, int i)
+{
+	philo[i] = malloc(sizeof(t_philo) * 1);
+	if (!philo[i])
+		return (err_msg(6));
+	philo[i]->data = data;
+	philo[i]->id = i + 1;
+	philo[i]->meals_took = 0;
+	philo[i]->last_meal = 0;
+	philo[i]->left_fork = philo[i]->id;
+	philo[i]->right_fork = philo[i]->id + 1;
+	if (i == data->nb_of_philo - 1)
+	{
+		philo[i]->left_fork = 1;
+		philo[i]->right_fork = philo[i]->id;
+	}
 	return (0);
 }
 
@@ -65,20 +85,21 @@ int	init_philo(t_philo **philo, t_data *data)
 	data->first_philo = philo;
 	while (i < data->nb_of_philo)
 	{
-		philo[i] = malloc(sizeof(t_philo) * 1);
-		if (!philo[i])
-			return (err_msg(6));
-		philo[i]->data = data;
-		philo[i]->id = i + 1;
-		philo[i]->meals_took = 0;
-		philo[i]->last_meal = 0;
-		philo[i]->left_fork = philo[i]->id;
-		philo[i]->right_fork = philo[i]->id + 1;
-		if (i == data->nb_of_philo - 1)
-		{
-			philo[i]->left_fork = 1;
-			philo[i]->right_fork = philo[i]->id;
-		}
+		fill_philo(philo, data, i);
+		// philo[i] = malloc(sizeof(t_philo) * 1);
+		// if (!philo[i])
+		// 	return (err_msg(6));
+		// philo[i]->data = data;
+		// philo[i]->id = i + 1;
+		// philo[i]->meals_took = 0;
+		// philo[i]->last_meal = 0;
+		// philo[i]->left_fork = philo[i]->id;
+		// philo[i]->right_fork = philo[i]->id + 1;
+		// if (i == data->nb_of_philo - 1)
+		// {
+		// 	philo[i]->left_fork = 1;
+		// 	philo[i]->right_fork = philo[i]->id;
+		// }
 		i++;
 	}
 	return (0);
@@ -120,7 +141,8 @@ int	init_mutex(t_data *data)
 	int	i;
 
 	i = 0;
-	data->forks_lock = malloc(sizeof(pthread_mutex_t) * (data->nb_of_philo + 1));
+	data->forks_lock = malloc(sizeof(pthread_mutex_t) * \
+		(data->nb_of_philo + 1));
 	if (!data->forks_lock)
 		return (err_msg(6));
 	while (i < data->nb_of_philo)
