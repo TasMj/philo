@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/16 15:02:56 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/16 22:05:40 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	fork_process(t_philo *philo, t_data *data)
 	}
 }
 
-int	eat(t_philo *philo, t_data *data)
+int	even(t_philo *philo, t_data *data)
 {
 	if ((philo->id % 2 == 0) && (philo->meals_took == 0))
 		u_sleep(data, data->time_to_eat / 3);
@@ -44,7 +44,6 @@ int	eat(t_philo *philo, t_data *data)
 
 int	sleep_and_think(t_philo *philo, t_data *data)
 {
-
 	if (check_simu(data) == 0)
 		print_status('s', philo, data);
 	u_sleep(data, data->time_to_sleep);
@@ -53,13 +52,12 @@ int	sleep_and_think(t_philo *philo, t_data *data)
 	return (0);
 }
 
-int	odd_eat(t_philo *philo, t_data *data)
+int	odd(t_philo *philo, t_data *data)
 {
 	if (philo->id % 2 == 0 && (philo->meals_took == 0))
 		u_sleep(data, data->time_to_eat / 3);
 	if (philo->id == data->nb_of_philo && (philo->meals_took == 0))
 		u_sleep(data, data->time_to_eat / 2);
-
 	fork_process(philo, data);
 	u_sleep(data, data->time_to_eat);
 	pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
@@ -74,27 +72,6 @@ int	odd_eat(t_philo *philo, t_data *data)
 	return (0);
 }
 
-
-/*odd number of philo*/
-// int	odd_eat(t_philo *philo, t_data *data)
-// {
-// 	if ((philo->meals_took == 0) && (philo->id == data->nb_of_philo))
-// 		usleep((data->time_to_eat) * 2);
-// 	if ((philo->meals_took == 0) && (philo->id % 2 == 0))
-// 		usleep(data->time_to_eat);
-// 	fork_process(philo, data);
-// 	u_sleep(data, data->time_to_eat);
-// 	pthread_mutex_unlock(&data->forks_lock[philo->right_fork]);
-// 	pthread_mutex_unlock(&data->forks_lock[philo->left_fork]);
-// 	pthread_mutex_lock(&data->meal_lock);
-// 	philo->meals_took++;
-// 	pthread_mutex_unlock(&data->meal_lock);
-// 	sleep_and_think(philo, data);
-// 	// usleep((data->time_to_eat + data->time_to_sleep));
-// 	u_sleep(data, (data->time_to_eat + data->time_to_sleep));
-// 	return (0);
-// }
-
 void	*routine(void *d)
 {
 	t_philo	*philo;
@@ -103,12 +80,9 @@ void	*routine(void *d)
 	while (check_simu(philo->data) == 0)
 	{
 		if (philo->data->nb_of_philo % 2 != 0)
-			odd_eat(philo, philo->data);
+			odd(philo, philo->data);
 		else
-		{
-			eat(philo, philo->data);
-			// sleep_and_think(philo, philo->data);
-		}
+			even(philo, philo->data);
 	}
 	return (0);
 }

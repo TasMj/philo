@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:30:56 by tas               #+#    #+#             */
-/*   Updated: 2023/02/16 15:05:34 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/16 22:03:14 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ int	init_mutex(t_data *data)
 			return (err_msg(7));
 		i++;
 	}
+	if (pthread_mutex_init(&data->forks_lock[i], NULL) != 0)
+		return (err_msg(7));
 	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
 		return (err_msg(7));
 	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
