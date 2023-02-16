@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:33:05 by tas               #+#    #+#             */
-/*   Updated: 2023/02/15 17:04:22 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/16 22:08:21 by tas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	destroy_mutex(t_data *data)
 			pthread_mutex_destroy(&data->forks_lock[i]);
 		i++;
 	}
+	if (&data->forks_lock[i])
+		pthread_mutex_destroy(&data->forks_lock[i]);
 	pthread_mutex_destroy(&data->dead_lock);
 	pthread_mutex_destroy(&data->meal_lock);
 	pthread_mutex_destroy(&data->print_lock);
