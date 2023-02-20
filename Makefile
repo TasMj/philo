@@ -6,7 +6,7 @@
 #    By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/12 12:26:34 by tmejri            #+#    #+#              #
-#    Updated: 2023/02/16 13:55:44 by tmejri           ###   ########.fr        #
+#    Updated: 2023/02/17 18:26:35 by tmejri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ OBJS			= ${SRCS:.c=.o}
 CC				= gcc
 RM				= rm -f
 CFLAGS			= -Wall -Wextra -Werror -g3 -pthread 
-# CFLAGS			+= -fsanitize=thread
 
 
 all:			${NAME}

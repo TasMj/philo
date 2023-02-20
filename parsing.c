@@ -6,7 +6,7 @@
 /*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:03:57 by tas               #+#    #+#             */
-/*   Updated: 2023/02/13 11:48:05 by tmejri           ###   ########.fr       */
+/*   Updated: 2023/02/17 17:54:39 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_digit(char *str)
 
 int	check_args(char *argv)
 {
-	int	n;
+	long long	n;
 
 	n = ft_atoi(argv);
 	if ((check_digit(argv) == 1) || n < 0)
@@ -68,11 +68,11 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-int	ft_atoi(const char *nptr)
+long long	ft_atoi(const char *nptr)
 {
-	int	res;
-	int	i;
-	int	sign;
+	long long	res;
+	int			i;
+	int			sign;
 
 	i = 0;
 	res = 0;
@@ -87,6 +87,8 @@ int	ft_atoi(const char *nptr)
 	}
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
+		if ((res > MAX && sign == 1) || (res < -MAX - 1 && sign == -1))
+			return (-1);
 		res = (res * 10) + (nptr[i] - 48);
 		i++;
 	}

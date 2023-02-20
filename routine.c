@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tas <tas@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tmejri <tmejri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:13:37 by tas               #+#    #+#             */
-/*   Updated: 2023/02/16 22:05:40 by tas              ###   ########.fr       */
+/*   Updated: 2023/02/17 18:22:12 by tmejri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ void	fork_process(t_philo *philo, t_data *data)
 		print_status('f', philo, data);
 		print_status('e', philo, data);
 	}
+}
+
+int	sleep_and_think(t_philo *philo, t_data *data)
+{
+	if (check_simu(data) == 0)
+		print_status('s', philo, data);
+	u_sleep(data, data->time_to_sleep);
+	if (check_simu(data) == 0)
+		print_status('t', philo, philo->data);
+	return (0);
 }
 
 int	even(t_philo *philo, t_data *data)
@@ -42,16 +52,6 @@ int	even(t_philo *philo, t_data *data)
 	return (0);
 }
 
-int	sleep_and_think(t_philo *philo, t_data *data)
-{
-	if (check_simu(data) == 0)
-		print_status('s', philo, data);
-	u_sleep(data, data->time_to_sleep);
-	if (check_simu(data) == 0)
-		print_status('t', philo, philo->data);
-	return (0);
-}
-
 int	odd(t_philo *philo, t_data *data)
 {
 	if (philo->id % 2 == 0 && (philo->meals_took == 0))
@@ -68,7 +68,7 @@ int	odd(t_philo *philo, t_data *data)
 	sleep_and_think(philo, data);
 	if (data->time_to_sleep == 0)
 		u_sleep(data, data->time_to_eat / 3);
-	u_sleep(data, (data->time_to_eat + data->time_to_sleep));
+	u_sleep(data, (data->time_to_eat + data->time_to_sleep) / 3);
 	return (0);
 }
 
